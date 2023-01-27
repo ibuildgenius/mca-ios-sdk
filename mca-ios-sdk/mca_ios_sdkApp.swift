@@ -2,16 +2,26 @@
 //  mca_ios_sdkApp.swift
 //  mca-ios-sdk
 //
-//  Created by mycover Mobile on 22/11/2022.
-//
 
 import SwiftUI
 
 @main
 struct mca_ios_sdkApp: App {
+    
+    
+    @StateObject var products = Sample()
+    
     var body: some Scene {
+        let networkService = NetworkService(baseURLString: "https://staging.api.mycover.ai")
+
         WindowGroup {
-            ContentView()
+        
+            NavigationView {
+                ProductListView().environmentObject(products)
+            }.navigationBarHidden(true)
+            
+
+          
         }
     }
 }
