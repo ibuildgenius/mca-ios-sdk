@@ -3,7 +3,7 @@ import SwiftUI
 struct Chips: View {
     let systemImage: String  //pass system image
     let titleKey: String //text or localisation value
-    @State var isSelected: Bool
+    var isSelected: Bool
     let onTap: () -> Void
     
     var body: some View {

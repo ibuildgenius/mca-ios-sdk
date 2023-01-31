@@ -19,6 +19,7 @@
 		2625166C2983D01400FD5114 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625166B2983D01400FD5114 /* PageView.swift */; };
 		2625166E2983D11100FD5114 /* TabLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625166D2983D11100FD5114 /* TabLayoutView.swift */; };
 		2625167329840DFA00FD5114 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625167229840DFA00FD5114 /* HtmlView.swift */; };
+		262516752984227F00FD5114 /* PageTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262516742984227F00FD5114 /* PageTemplate.swift */; };
 		26DBC543297FD0930076605C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC542297FD0930076605C /* NetworkService.swift */; };
 		26DBC545297FD55E0076605C /* ProductListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC544297FD55E0076605C /* ProductListResponse.swift */; };
 		26DBC549297FDAF10076605C /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC548297FDAF10076605C /* LoadingState.swift */; };
@@ -66,6 +67,7 @@
 		2625166B2983D01400FD5114 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
 		2625166D2983D11100FD5114 /* TabLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabLayoutView.swift; sourceTree = "<group>"; };
 		2625167229840DFA00FD5114 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
+		262516742984227F00FD5114 /* PageTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTemplate.swift; sourceTree = "<group>"; };
 		26DBC542297FD0930076605C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		26DBC544297FD55E0076605C /* ProductListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductListResponse.swift; path = models/ProductListResponse.swift; sourceTree = "<group>"; };
 		26DBC548297FDAF10076605C /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingState.swift; path = models/LoadingState.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				26DBC5502982A2B60076605C /* ProductForms.swift */,
 				262516572982A9CD00FD5114 /* fonts */,
 				26DBC54E29817FBD0076605C /* ProductInfoScreen.swift */,
+				262516742984227F00FD5114 /* PageTemplate.swift */,
 				262516692983CE5100FD5114 /* TabDataModel.swift */,
 				2625166B2983D01400FD5114 /* PageView.swift */,
 				2625167229840DFA00FD5114 /* HtmlView.swift */,
@@ -328,6 +331,7 @@
 				26DBC549297FDAF10076605C /* LoadingState.swift in Sources */,
 				2625166A2983CE5100FD5114 /* TabDataModel.swift in Sources */,
 				262516662983C68200FD5114 /* Colors.swift in Sources */,
+				262516752984227F00FD5114 /* PageTemplate.swift in Sources */,
 				262516642982DC5600FD5114 /* Chip.swift in Sources */,
 				26DBC54D29800B1C0076605C /* Credential.swift in Sources */,
 				26DBC545297FD55E0076605C /* ProductListResponse.swift in Sources */,
