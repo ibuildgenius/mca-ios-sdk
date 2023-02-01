@@ -37,13 +37,13 @@ struct ProductForms: View {
                 HStack {
                     Image(systemName: "info.circle.fill").foregroundColor(pColor)
                     Text("Enter details as it appears on legal documents")
-                        .font(font14)
+                        .font(metropolisRegular)
                         .padding(.leading, 5)
                 }
                 
                 HStack {
                     VStack{}.frame(maxWidth: .infinity)
-                    Text("Underwritten by: \(product.productDetailPrefix.capitalized)").font(font12)
+                    Text("Underwritten by: \(product.productDetailPrefix.capitalized)").font(metropolisRegularSM)
                     
                 }
                 
@@ -73,7 +73,7 @@ struct ProductForms: View {
         
                             } else if(form.inputType == InputType.file) {
                                 // Use custom content for the button label
-                                           FilePicker(types: [.plainText], allowMultiple: false) { urls in
+                                FilePicker(types: [.plainText], allowMultiple: false) { urls in
                                                print("selected \(urls.count) files")
                                            } label: {
                                                CustomTextField(
@@ -81,8 +81,7 @@ struct ProductForms: View {
                                                    inputType: resolveKeyboardType(inputType: form.inputType),
                                                    hint: form.description,
                                                    disabled: true,
-                                                   text: name,
-                                                   onTap: {}
+                                                   text: name
                                                )
                                            }
                             }
@@ -102,7 +101,9 @@ struct ProductForms: View {
                         }.padding(.vertical, 4)
                         
                     }
-                }.frame(maxHeight: .infinity)
+                }.padding(.top,15)
+                
+                VStack {}.frame(maxHeight: .infinity)
                 
                 Button("Continue") {
                     if (currentFormSetIndex < formSet.count  - 1) {
@@ -119,7 +120,8 @@ struct ProductForms: View {
                    
                 
             
-            }.padding(.horizontal, 12)
+            }
+                .padding(.horizontal, 12)
             )
         }
         )

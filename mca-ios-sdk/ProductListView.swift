@@ -5,13 +5,6 @@
 
 import SwiftUI
 
-
-struct Hello: View {
-    var body: some View {
-        Text("Hello")
-    }
-}
-
 struct ProductListView: View {
     
   //  @ObservedObject var viewModel: ProductListViewModel
@@ -36,10 +29,11 @@ struct ProductListView: View {
     }
     
     @State var selectedIndex: Int = 0
-    
-    
+
     var body: some View {
        // let state = viewModel.state
+    
+        
         
         let companies = getCompanies()
         
@@ -52,7 +46,10 @@ struct ProductListView: View {
      
         
         VStack {
-            Text("Products Page").background()
+            Text("Products Page").font(metropolisBold).padding(.vertical, 12)
+            
+            
+            
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(alignment: .center){
                 ForEach(companies.indices) {
@@ -80,11 +77,11 @@ struct ProductListView: View {
                         
                         VStack(alignment: .leading, spacing: 10) {
                             Text(product.name)
-                                .font(spaceGroteskBold)
+                                .font(metropolisBold14)
                                 .multilineTextAlignment(.leading)
                                 
                                                              
-                            Text(product.productDetailPrefix).font(.caption).foregroundColor(.gray)
+                            Text(product.productDetailPrefix.capitalized).font(metropolisRegularSM).foregroundColor(.gray)
                             
                         }.frame(
                             minWidth: 0,
@@ -95,7 +92,7 @@ struct ProductListView: View {
                           )
                         
                         
-                        Text("N \(product.price)").font(Font.custom("",size: 13)).bold()
+                        Text("N \(product.price)").font(metropolisMedium)
                     }.background(NavigationLink("", destination:
                                                     ProductInfoScreen(product: product)).opacity(0))
                     .listRowSeparator(.hidden)
@@ -110,8 +107,4 @@ struct ProductListView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        Hello()
-    }
-}
+

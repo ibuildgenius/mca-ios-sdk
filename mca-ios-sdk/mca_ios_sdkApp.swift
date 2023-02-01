@@ -11,9 +11,16 @@ struct mca_ios_sdkApp: App {
     
     @StateObject var products = Sample()
     
+    
+    
+    
     var body: some Scene {
         let networkService = NetworkService(baseURLString: "https://staging.api.mycover.ai")
 
+        
+        
+        
+        
         WindowGroup {
         
             NavigationView {

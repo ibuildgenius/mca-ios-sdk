@@ -8,7 +8,7 @@ struct Chips: View {
     
     var body: some View {
         HStack {
-            Text(titleKey).font(.caption).lineLimit(1)
+            Text(titleKey).font(metropolisRegularSM).lineLimit(1)
         }.padding(.all, 6)
         .foregroundColor(isSelected ? .white : pColor)
         .background(isSelected ? pColor : Color.white) //different UI for selected and not selected view

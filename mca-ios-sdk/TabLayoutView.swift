@@ -81,7 +81,7 @@ struct SingleTagView: View {
             Text(dataModel.tabTitles[tagIndex])
                 .foregroundColor(isThisTagSelected ? dataModel.selectedTabDataModel.textColor : dataModel.unselectedTabDataModel.textColor)
                 .padding()
-                .font(spaceGroteskBold)
+                .font(metropolisMedium)
         .onTapGesture {
             action(tagIndex)
         }

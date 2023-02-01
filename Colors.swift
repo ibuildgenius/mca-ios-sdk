@@ -12,6 +12,14 @@ let pColor = Color("mcgTeal")
 
 
 
-let spaceGroteskBold: Font = Font.custom("metropolis_bold", size: 15)
-let font12 = Font.custom("", size: 12)
-let font14 = Font.custom("", size: 14)
+let metropolisMedium: Font = Font.custom("Metropolis-Medium", size: 14)
+
+let metropolisBold: Font = Font.custom("Metropolis-Bold", size: 16)
+
+let metropolisBold14: Font = Font.custom("Metropolis-Bold", size: 14)
+
+
+let metropolisRegular: Font = Font.custom("Metropolis-Regular", size: 14)
+
+let metropolisRegularSM: Font = Font.custom("Metropolis-Regular", size: 12)
+

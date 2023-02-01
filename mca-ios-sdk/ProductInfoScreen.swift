@@ -61,6 +61,7 @@ struct ProductInfoScreen: View {
                            NavigationLink(destination: ProductForms(product: product)) {
                                VStack {
                                    Text("Continue")
+                                       .font(metropolisBold14)
                                        .foregroundColor(Color.white)
                                        .padding(.vertical, 9)
                                       
