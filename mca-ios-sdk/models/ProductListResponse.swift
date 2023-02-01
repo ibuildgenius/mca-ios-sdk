@@ -133,7 +133,7 @@ struct ProductDetail: Decodable {
 }
 
 // MARK: - FormFieldElement
-struct FormFieldElement: Decodable {
+struct FormFieldElement: Decodable, Identifiable {
     let id: String
     let isLive: Bool
     let description, name, label: String

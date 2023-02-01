@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		262516582982A9CD00FD5114 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 262516572982A9CD00FD5114 /* fonts */; };
 		2625165C2982A9E100FD5114 /* network in Resources */ = {isa = PBXBuildFile; fileRef = 262516592982A9E100FD5114 /* network */; };
 		2625165D2982A9E100FD5114 /* models in Resources */ = {isa = PBXBuildFile; fileRef = 2625165A2982A9E100FD5114 /* models */; };
 		2625165E2982A9E100FD5114 /* viewmodel in Resources */ = {isa = PBXBuildFile; fileRef = 2625165B2982A9E100FD5114 /* viewmodel */; };
@@ -20,6 +19,8 @@
 		2625166E2983D11100FD5114 /* TabLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625166D2983D11100FD5114 /* TabLayoutView.swift */; };
 		2625167329840DFA00FD5114 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625167229840DFA00FD5114 /* HtmlView.swift */; };
 		262516752984227F00FD5114 /* PageTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262516742984227F00FD5114 /* PageTemplate.swift */; };
+		266FBDFF298ABBC100566209 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266FBDFE298ABBC100566209 /* CustomTextField.swift */; };
+		266FBE02298B09D800566209 /* FilePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 266FBE01298B09D800566209 /* FilePicker */; };
 		26DBC543297FD0930076605C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC542297FD0930076605C /* NetworkService.swift */; };
 		26DBC545297FD55E0076605C /* ProductListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC544297FD55E0076605C /* ProductListResponse.swift */; };
 		26DBC549297FDAF10076605C /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC548297FDAF10076605C /* LoadingState.swift */; };
@@ -55,7 +56,6 @@
 
 /* Begin PBXFileReference section */
 		262516562982A89B00FD5114 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		262516572982A9CD00FD5114 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		262516592982A9E100FD5114 /* network */ = {isa = PBXFileReference; lastKnownFileType = folder; path = network; sourceTree = "<group>"; };
 		2625165A2982A9E100FD5114 /* models */ = {isa = PBXFileReference; lastKnownFileType = folder; path = models; sourceTree = "<group>"; };
 		2625165B2982A9E100FD5114 /* viewmodel */ = {isa = PBXFileReference; lastKnownFileType = folder; path = viewmodel; sourceTree = "<group>"; };
@@ -68,6 +68,10 @@
 		2625166D2983D11100FD5114 /* TabLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabLayoutView.swift; sourceTree = "<group>"; };
 		2625167229840DFA00FD5114 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		262516742984227F00FD5114 /* PageTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTemplate.swift; sourceTree = "<group>"; };
+		266FBDFB298AB99100566209 /* metropolis_medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = metropolis_medium.otf; sourceTree = "<group>"; };
+		266FBDFC298AB99100566209 /* metropolis_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = metropolis_bold.otf; sourceTree = "<group>"; };
+		266FBDFD298AB99100566209 /* metropolis_regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = metropolis_regular.otf; sourceTree = "<group>"; };
+		266FBDFE298ABBC100566209 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		26DBC542297FD0930076605C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		26DBC544297FD55E0076605C /* ProductListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductListResponse.swift; path = models/ProductListResponse.swift; sourceTree = "<group>"; };
 		26DBC548297FDAF10076605C /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingState.swift; path = models/LoadingState.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				266FBE02298B09D800566209 /* FilePicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,9 +117,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		266FBDFA298AB98200566209 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				266FBDFB298AB99100566209 /* metropolis_medium.otf */,
+				266FBDFC298AB99100566209 /* metropolis_bold.otf */,
+				266FBDFD298AB99100566209 /* metropolis_regular.otf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		26EC7C14292CEE4D00905CD0 = {
 			isa = PBXGroup;
 			children = (
+				266FBDFA298AB98200566209 /* fonts */,
 				262516632982DC5600FD5114 /* Chip.swift */,
 				262516652983C68200FD5114 /* Colors.swift */,
 				26EC7C1F292CEE4D00905CD0 /* mca-ios-sdk */,
@@ -146,7 +162,7 @@
 				262516592982A9E100FD5114 /* network */,
 				2625165B2982A9E100FD5114 /* viewmodel */,
 				26DBC5502982A2B60076605C /* ProductForms.swift */,
-				262516572982A9CD00FD5114 /* fonts */,
+				266FBDFE298ABBC100566209 /* CustomTextField.swift */,
 				26DBC54E29817FBD0076605C /* ProductInfoScreen.swift */,
 				262516742984227F00FD5114 /* PageTemplate.swift */,
 				262516692983CE5100FD5114 /* TabDataModel.swift */,
@@ -206,6 +222,7 @@
 			);
 			name = "mca-ios-sdk";
 			packageProductDependencies = (
+				266FBE01298B09D800566209 /* FilePicker */,
 			);
 			productName = "mca-ios-sdk";
 			productReference = 26EC7C1D292CEE4D00905CD0 /* mca-ios-sdk.app */;
@@ -280,6 +297,7 @@
 			);
 			mainGroup = 26EC7C14292CEE4D00905CD0;
 			packageReferences = (
+				266FBE00298B09D800566209 /* XCRemoteSwiftPackageReference "FilePicker" */,
 			);
 			productRefGroup = 26EC7C1E292CEE4D00905CD0 /* Products */;
 			projectDirPath = "";
@@ -300,7 +318,6 @@
 				2625165D2982A9E100FD5114 /* models in Resources */,
 				2625165E2982A9E100FD5114 /* viewmodel in Resources */,
 				262516622982D06300FD5114 /* sample in Resources */,
-				262516582982A9CD00FD5114 /* fonts in Resources */,
 				2625165C2982A9E100FD5114 /* network in Resources */,
 				26EC7C28292CEE5100905CD0 /* Preview Assets.xcassets in Resources */,
 				26EC7C25292CEE5100905CD0 /* Assets.xcassets in Resources */,
@@ -336,6 +353,7 @@
 				26DBC54D29800B1C0076605C /* Credential.swift in Sources */,
 				26DBC545297FD55E0076605C /* ProductListResponse.swift in Sources */,
 				26DBC54B297FDC610076605C /* ProductListViewModel.swift in Sources */,
+				266FBDFF298ABBC100566209 /* CustomTextField.swift in Sources */,
 				26EC7C23292CEE4D00905CD0 /* ProductListView.swift in Sources */,
 				262516602982CFA800FD5114 /* Sample.swift in Sources */,
 				2625167329840DFA00FD5114 /* HtmlView.swift in Sources */,
@@ -665,6 +683,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		266FBE00298B09D800566209 /* XCRemoteSwiftPackageReference "FilePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/markrenaud/FilePicker";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		266FBE01298B09D800566209 /* FilePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 266FBE00298B09D800566209 /* XCRemoteSwiftPackageReference "FilePicker" */;
+			productName = FilePicker;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 26EC7C15292CEE4D00905CD0 /* Project object */;
 }
