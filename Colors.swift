@@ -21,5 +21,7 @@ let metropolisBold14: Font = Font.custom("Metropolis-Bold", size: 14)
 
 let metropolisRegular: Font = Font.custom("Metropolis-Regular", size: 14)
 
+let metropolisRegular13: Font = Font.custom("Metropolis-Regular", size: 13)
+
 let metropolisRegularSM: Font = Font.custom("Metropolis-Regular", size: 12)
 

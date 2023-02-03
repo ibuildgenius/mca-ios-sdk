@@ -35,16 +35,16 @@ struct ProductForms: View {
             return AnyView(VStack {
                 
                 HStack {
-                    Image(systemName: "info.circle.fill").foregroundColor(pColor)
+                    Image(systemName: "info.circle.fill").resizable().frame(width: 15, height: 15).foregroundColor(pColor)
+                    
                     Text("Enter details as it appears on legal documents")
-                        .font(metropolisRegular)
+                        .font(metropolisRegular13)
                         .padding(.leading, 5)
                 }
                 
                 HStack {
                     VStack{}.frame(maxWidth: .infinity)
                     Text("Underwritten by: \(product.productDetailPrefix.capitalized)").font(metropolisRegularSM)
-                    
                 }
                 
                 
@@ -118,8 +118,6 @@ struct ProductForms: View {
                     .background(pColor)
                     .clipShape(Capsule())
                    
-                
-            
             }
                 .padding(.horizontal, 12)
             )
