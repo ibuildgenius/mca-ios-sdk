@@ -39,6 +39,7 @@
 		26EC7C32292CEE5100905CD0 /* mca_ios_sdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC7C31292CEE5100905CD0 /* mca_ios_sdkTests.swift */; };
 		26EC7C3C292CEE5100905CD0 /* mca_ios_sdkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC7C3B292CEE5100905CD0 /* mca_ios_sdkUITests.swift */; };
 		26EC7C3E292CEE5100905CD0 /* mca_ios_sdkUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EC7C3D292CEE5100905CD0 /* mca_ios_sdkUITestsLaunchTests.swift */; };
+		26EFF256298D156A0025039F /* PaymentDetailsScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26EFF255298D156A0025039F /* PaymentDetailsScreen.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		26EC7C37292CEE5100905CD0 /* mca-ios-sdkUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "mca-ios-sdkUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26EC7C3B292CEE5100905CD0 /* mca_ios_sdkUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mca_ios_sdkUITests.swift; sourceTree = "<group>"; };
 		26EC7C3D292CEE5100905CD0 /* mca_ios_sdkUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mca_ios_sdkUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		26EFF255298D156A0025039F /* PaymentDetailsScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentDetailsScreen.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				262516592982A9E100FD5114 /* network */,
 				2625165B2982A9E100FD5114 /* viewmodel */,
 				26DBC5502982A2B60076605C /* ProductForms.swift */,
+				26EFF255298D156A0025039F /* PaymentDetailsScreen.swift */,
 				266FBDFE298ABBC100566209 /* CustomTextField.swift */,
 				26DBC54E29817FBD0076605C /* ProductInfoScreen.swift */,
 				262516742984227F00FD5114 /* PageTemplate.swift */,
@@ -356,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				26DBC549297FDAF10076605C /* LoadingState.swift in Sources */,
+				26EFF256298D156A0025039F /* PaymentDetailsScreen.swift in Sources */,
 				2625166A2983CE5100FD5114 /* TabDataModel.swift in Sources */,
 				262516662983C68200FD5114 /* Colors.swift in Sources */,
 				262516752984227F00FD5114 /* PageTemplate.swift in Sources */,

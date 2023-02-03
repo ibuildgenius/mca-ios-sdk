@@ -17,7 +17,7 @@ struct HTMLStringView: UIViewRepresentable {
     func updateUIView(_ uiView: WKWebView, context: Context) {
         
         // TODO: if you're here, please improve styling
-        let x = "<style> body { font-size: 36px;  font-family: 'SpaceGroteskMedium'   src: url(\"Metropolis-Medium.otf\") format('opentype'); line-height: 60px; overflow: hidden; } </style>"
+        let x = "<style> body { font-size: 36px;  font-family: 'Metropolis'   src: url(\"Metropolis-Medium.otf\") format('opentype'); line-height: 60px; overflow: hidden; } </style>"
         
      
         uiView.loadHTMLString(htmlContent.appending(x), baseURL: nil)

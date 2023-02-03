@@ -15,13 +15,18 @@ struct ProductForms: View {
     
     @State private var name: String = ""
     
+    
+    @State private var showPayment = false
+    
     @State private var currentFormSetIndex = 0
     @State private var date = Date()
     //@State private var fields: List<KeyValuePairs> = [][]
     
     
     var body: some View {
-        PageTemplate(onBackPressed: {
+        
+        if (!showPayment) {
+            PageTemplate(onBackPressed: {
             if(currentFormSetIndex > 0) {
                 currentFormSetIndex -= 1
             }else {
@@ -108,6 +113,8 @@ struct ProductForms: View {
                 Button("Continue") {
                     if (currentFormSetIndex < formSet.count  - 1) {
                         currentFormSetIndex += 1
+                    } else {
+                        showPayment = true
                     }
                     print("index \(currentFormSetIndex) count \(formSet.count) \(formSet.indices)")
                 }
@@ -121,9 +128,11 @@ struct ProductForms: View {
             }
                 .padding(.horizontal, 12)
             )
+        }).navigationBarHidden(true)
+        } else {
+            PaymentDetailsScreen()
         }
-        )
-        .navigationBarHidden(true)
+        
     }
 }
 
