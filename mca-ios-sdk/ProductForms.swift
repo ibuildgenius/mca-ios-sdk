@@ -15,15 +15,18 @@ struct ProductForms: View {
     
     @State private var name: String = ""
     
+    @State private var fields: [String: String] = [:]
     
     @State private var showPayment = false
     
     @State private var currentFormSetIndex = 0
     @State private var date = Date()
-    //@State private var fields: List<KeyValuePairs> = [][]
+    
+  
     
     
     var body: some View {
+        
         
         if (!showPayment) {
             PageTemplate(onBackPressed: {
@@ -45,7 +48,7 @@ struct ProductForms: View {
                     Text("Enter details as it appears on legal documents")
                         .font(metropolisRegular13)
                         .padding(.leading, 5)
-                }
+                }.padding(0)
                 
                 HStack {
                     VStack{}.frame(maxWidth: .infinity)
@@ -62,8 +65,6 @@ struct ProductForms: View {
                             
                             
                             if(form.inputType == InputType.date) {
-                                
-                             
                              
                                         CustomTextField(
                                             label: form.label,
@@ -97,12 +98,16 @@ struct ProductForms: View {
                                     inputType: resolveKeyboardType(inputType: form.inputType),
                                     hint: form.description,
                                     disabled: false,
-                                    text: name,
-                                    onTap: {}
+                                    text: fields[form.label] ?? "",
+                                    onTap: {
+                                        print("\(form.label) is \(fields[form.label] ?? "")")
+                                    },
+                                    onChange: {value in
+                                        fields[form.label] = value
+                                        print(value)
+                                    }
                                 )
                             }
-                            
-                           
                         }.padding(.vertical, 4)
                         
                     }
@@ -130,7 +135,7 @@ struct ProductForms: View {
             )
         }).navigationBarHidden(true)
         } else {
-            PaymentDetailsScreen()
+            PaymentDetailsScreen(product: product, fields: fields)
         }
         
     }
@@ -176,4 +181,11 @@ struct SwiftUIWrapper<T: View>: UIViewControllerRepresentable {
         UIHostingController(rootView: content())
     }
     func updateUIViewController(_ uiViewController: UIHostingController<T>, context: Context) {}
+}
+
+
+extension Binding {
+     func toUnwrapped<T>(defaultValue: T) -> Binding<T> where Value == Optional<T>  {
+        Binding<T>(get: { self.wrappedValue ?? defaultValue }, set: { self.wrappedValue = $0 })
+    }
 }

@@ -8,11 +8,16 @@
 import SwiftUI
 
 struct PaymentDetailsScreen: View {
+    let product: ProductDetail
+    let fields: [String: String]
+    
+    
     var body: some View {
         PageTemplate(onBackPressed: {}, mContent: {
-            return AnyView {
-                
-            }
-        })
+            return AnyView(VStack {
+                Text("\(product.name) x \(fields.description)")
+            })
+            
+        }).navigationBarHidden(true)
     }
 }
