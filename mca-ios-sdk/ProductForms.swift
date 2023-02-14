@@ -23,8 +23,6 @@ struct ProductForms: View {
     @State private var date = Date()
     
   
-    
-    
     var body: some View {
         
         
@@ -43,7 +41,7 @@ struct ProductForms: View {
             return AnyView(VStack {
                 
                 HStack {
-                    Image(systemName: "info.circle.fill").resizable().frame(width: 15, height: 15).foregroundColor(pColor)
+                    Image(systemName: "info.circle.fill").resizable().frame(width: 15, height: 15).foregroundColor(colorPrimary)
                     
                     Text("Enter details as it appears on legal documents")
                         .font(metropolisRegular13)
@@ -127,7 +125,7 @@ struct ProductForms: View {
                 .padding(.horizontal, 12)
                     .padding(.vertical, 10)
                     .foregroundColor(.white)
-                    .background(pColor)
+                    .background(colorPrimary)
                     .clipShape(Capsule())
                    
             }
@@ -135,7 +133,9 @@ struct ProductForms: View {
             )
         }).navigationBarHidden(true)
         } else {
-            PaymentDetailsScreen(product: product, fields: fields)
+            PaymentDetailsScreen(onBackPressed: {
+                showPayment.toggle()
+            },  product: product, fields: fields)
         }
         
     }

@@ -10,12 +10,12 @@ struct Chips: View {
         HStack {
             Text(titleKey).font(metropolisRegularSM).lineLimit(1)
         }.padding(.all, 6)
-        .foregroundColor(isSelected ? .white : pColor)
-        .background(isSelected ? pColor : Color.white) //different UI for selected and not selected view
+        .foregroundColor(isSelected ? .white : colorPrimary)
+        .background(isSelected ? colorPrimary : Color.white) //different UI for selected and not selected view
         .cornerRadius(40)  //rounded Corner
         .overlay(
                 RoundedRectangle(cornerRadius: 40)
-                    .stroke(pColor, lineWidth: 1)
+                    .stroke(colorPrimary, lineWidth: 1)
         
         ).onTapGesture {
             onTap()

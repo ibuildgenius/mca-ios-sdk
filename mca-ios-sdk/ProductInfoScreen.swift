@@ -18,7 +18,7 @@ struct ProductInfoScreen: View {
         
         // data to draw TabLayout View
               let titles = ["How it Works", "Benefits", "How to claim"]
-        let sModel = SelectedTabDataModel(textColor: pColor, backgroundColor: pColor.opacity(0.1), borderColor: pColor, borderWidth: 0.1, cornerRadius: 0)
+        let sModel = SelectedTabDataModel(textColor: colorPrimary, backgroundColor: colorPrimary.opacity(0.1), borderColor: colorPrimary, borderWidth: 0.1, cornerRadius: 0)
         let uModel = UnSelectedTabDataModel(textColor: .gray, backgroundColor: Color.white, borderColor: .gray, borderWidth: 0.1, cornerRadius: 0)
               let dataModel = TabDataModel(tabTitles: titles, spacingBetweenTabs: 4, paddingLeftRight: 4, selectedTabDataModel: sModel, unselectedTabDataModel: uModel)
         
@@ -67,7 +67,7 @@ struct ProductInfoScreen: View {
                                       
                                }
                                .frame(maxWidth: .infinity)
-                               .background(pColor)
+                               .background(colorPrimary)
                                .padding(12)
                                
                            }})

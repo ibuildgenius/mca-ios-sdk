@@ -94,7 +94,7 @@ struct ProductListView: View {
                         
                         Text("N \(product.price)").font(metropolisMedium)
                     }.background(NavigationLink("", destination:
-                                                    ProductInfoScreen(product: product)).opacity(0))
+                                                    PaymentDetailsScreen(onBackPressed: {}, product: product, fields: [:])).opacity(0))
                     .listRowSeparator(.hidden)
                 }
     

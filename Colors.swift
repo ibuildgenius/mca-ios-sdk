@@ -8,13 +8,18 @@
 import SwiftUI
 
 
-let pColor = Color("mcgTeal")
+let colorPrimary = Color("mcgTeal")
+let colorGrey = Color("colorGray")
 
 
 
 let metropolisMedium: Font = Font.custom("Metropolis-Medium", size: 14)
 
+let metropolisMedium25: Font = Font.custom("Metropolis-Medium", size: 25)
+
 let metropolisBold: Font = Font.custom("Metropolis-Bold", size: 16)
+
+let metropolisBold25: Font = Font.custom("Metropolis-Bold", size: 25)
 
 let metropolisBold14: Font = Font.custom("Metropolis-Bold", size: 14)
 

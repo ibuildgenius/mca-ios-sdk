@@ -15,7 +15,7 @@ struct PageTemplate: View {
             HStack {
                 Image(systemName: "chevron.backward").onTapGesture {
                     onBackPressed()
-                }.foregroundColor(pColor)
+                }.foregroundColor(colorPrimary)
                 Text("").frame(maxWidth: .infinity)
             }.padding(12)
             
