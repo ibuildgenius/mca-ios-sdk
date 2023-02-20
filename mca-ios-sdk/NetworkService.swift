@@ -5,18 +5,68 @@
 
 import Foundation
 import Combine
+import AnyCodable
 
 protocol NetworkServiceable {
-    func getProducts()
+    func getProducts() async  -> DataClass?
+    func intiatePurchase(payload: [String: Any]) async -> [String: Any]?
+    func getBanks() async -> BankResponse?
+    func getSelectFieldOptions(url: String) async -> SelectResponse?
     
 }
 
-class NetworkService: NetworkServiceable, ObservableObject {
+fileprivate extension URLRequest {
+    func debug() {
+        print("\(self.httpMethod!) \(self.url!)")
+        print("Headers:")
+        print(self.allHTTPHeaderFields!)
+        print("Body:")
+        print(String(data: self.httpBody ?? Data(), encoding: .utf8)!)
+    }
+}
+
+class NetworkService: NetworkServiceable {
+    func getSelectFieldOptions(url: String) async -> SelectResponse? {
+        
+        
+        let urlString = "\(baseURLString)/v1\(url)"
+
+        guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
+        
+        var request = URLRequest(url: url)
+        
+        
+        request.httpMethod = "get"
+        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        do {
+            
+            request.debug()
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            
+            
+            do {
+                let x = try JSONDecoder().decode(SelectResponse.self,  from: data)
+                
+                return x
+            } catch {
+                print(error)
+            }
+            
+        } catch {
+            print("Invalid data")
+        }
+        
+        return nil
+    }
+    
+
+    
     
     @Published var products: [ProductDetail] = []
     
-    
-    let dummyResponse = ProductListResponse(responseCode: 0, responseText: "sample response text", data: DataClass(businessDetails: nil, productDetails:   []))
+   
     
     let baseURLString: String
     
@@ -24,11 +74,86 @@ class NetworkService: NetworkServiceable, ObservableObject {
            self.baseURLString = baseURLString
     }
     
-    func getProducts() {
+    
+    
+    func getBanks() async -> BankResponse? {
+        let urlString = "\(baseURLString)/v1/bank/list-banks"
+
+        guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
+        
+        var request = URLRequest(url: url)
+        
+        
+        request.httpMethod = "get"
+        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        do {
+            
+            request.debug()
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            
+            
+            do {
+                let x = try JSONDecoder().decode(BankResponse.self,  from: data)
+                
+                return x
+            } catch {
+                print(error)
+            }
+            
+        } catch {
+            print("Invalid data")
+        }
+    return nil
+    }
+    
+    
+    
+    
+    
+    func intiatePurchase(payload: [String: Any]) async -> [String : Any]? {
+        let urlString = "\(baseURLString)/v1/sdk/initiate-purchase"
+
+        guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
+        
+        var request = URLRequest(url: url)
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: payload)
+        
+        request.httpMethod = "post"
+        request.httpBody = jsonData
+        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            
+            request.debug()
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            
+            if let decodedResponse = try? JSONDecoder().decode([String: AnyDecodable].self,  from: data) {
+                
+                let text = (decodedResponse["responseText"]!).value as! String
+                
+                print("decoded response \(decodedResponse)")
+                return decodedResponse
+            } else {
+                print("cannot parse \(data)")
+            }
+            
+        } catch {
+            print("Invalid data")
+        }
+    return nil
+    }
+    
+    func getProducts() async -> DataClass? {
         
         let urlString = "\(baseURLString)/v1/sdk/initialize"
 
-        guard let url = URL(string: urlString) else { print("url error occurred"); fatalError() }
+        guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
         
         var request = URLRequest(url: url)
         
@@ -36,45 +161,24 @@ class NetworkService: NetworkServiceable, ObservableObject {
         
         let jsonData = try! JSONSerialization.data(withJSONObject: json)
         
-        request.httpMethod = "POST"
+        request.httpMethod = "post"
         request.httpBody = jsonData
-        request.setValue("Authorization", forHTTPHeaderField: "Bearer \(APIKEY)")
-        request.setValue("Content-Type", forHTTPHeaderField: "application/json")
+        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-            if let error = error {
-                print("\n\n\n\n A Server error occurred \n \(error) \n\n\n")
-                
-                guard let response = response as? HTTPURLResponse else { return }
-                
-                print("\n\n\n\n status code \(response.statusCode)")
-                
-                return
+        do {
+            
+            request.debug()
+            
+            let (data, _) = try await URLSession.shared.upload(for: request, from: jsonData)
+            
+            if let decodedResponse = try? JSONDecoder().decode(ProductListResponse.self, from: data) {
+                return decodedResponse.data
             }
-            
-            guard let response = response as? HTTPURLResponse else { return }
-            
-            
-            if response.statusCode == 200 {
-                guard let data = data else { return }
-                            DispatchQueue.main.async {
-                                do {
-                                    let decodedUsers = try JSONDecoder().decode(ProductListResponse.self, from: data)
-                                    
-                                    self.products = decodedUsers.data.productDetails
-                                 
-                                } catch let error {
-                                    print("Error decoding: ", error)
-                                }
-            }
-            } else {
-                print("\n\n\n\n status code \(response.statusCode)")
-            }
-            
+        } catch {
+            print("Invalid data")
         }
-        
-        task.resume()
-    
+    return nil
     }
 }

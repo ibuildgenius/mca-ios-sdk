@@ -5,18 +5,24 @@
 
 import SwiftUI
 
+
+struct DefaultsKeys {
+    static let instanceId = "instanceId"
+}
+
+
 struct ProductListView: View {
     
-  //  @ObservedObject var viewModel: ProductListViewModel
+    @State private var productList: [ProductDetail] = []
+    @State private var isLoading = false;
+    @State private var companies: [String] = []
     
-    //@EnvironmentObject var network: NetworkService
-    
-    @EnvironmentObject var sample: Sample
+    //@EnvironmentObject var sample: Sample
     
     func getCompanies() ->  [String] {
         var companies = ["all"]
         
-        for p in  sample.responseData.data.productDetails {
+        for p in  productList.filter({ !$0.formFields.isEmpty}) {
         
             let d = p.productDetailPrefix
             
@@ -31,77 +37,98 @@ struct ProductListView: View {
     @State var selectedIndex: Int = 0
 
     var body: some View {
-       // let state = viewModel.state
-    
         
-        
-        let companies = getCompanies()
-        
-        let filteredList = sample.responseData.data.productDetails.filter{
+        let filteredList = productList.filter{
             p in
+            
              if(companies[selectedIndex] != "all") {
             return p.productDetailPrefix == companies[selectedIndex]
             } else { return true}
-        }
+        }.filter{ !$0.formFields.isEmpty }
      
-        
         VStack {
             Text("Products Page").font(metropolisBold).padding(.vertical, 12)
             
-            
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .center){
-                ForEach(companies.indices) {
-                    c in
-                    Chips(systemImage: "", titleKey: companies[c], isSelected: c == self.selectedIndex, onTap: { self.selectedIndex = c })
-                }
+            if(isLoading) {
+                VStack(alignment: .center) {
+                    Text("Fetching products, please wait..").padding(12).font(metropolisRegular)
+                    ProgressView()
+                }.frame(maxHeight: .infinity, alignment: .center)
+               
+            } else {
                 
-                }.padding(.top, 13)
-            }.frame(height: 40).padding(.horizontal, 12)
-            
-            
-            List {
-                ForEach(filteredList.indices, id: \.self) {
-                    x in
-                    
-                    let product  = filteredList[x]
-                    
-                    
-                    HStack {
-                        Image(systemName: "house.fill").renderingMode(.template)
-                            .foregroundColor(Color("mcgTeal"))
-                            .padding(0)
-                        
-                        
-                        
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(product.name)
-                                .font(metropolisBold14)
-                                .multilineTextAlignment(.leading)
-                                
-                                                             
-                            Text(product.productDetailPrefix.capitalized).font(metropolisRegularSM).foregroundColor(.gray)
-                            
-                        }.frame(
-                            minWidth: 0,
-                            maxWidth: .infinity,
-                            minHeight: 0,
-                            maxHeight: .infinity,
-                            alignment: .topLeading
-                          )
-                        
-                        
-                        Text("N \(product.price)").font(metropolisMedium)
-                    }.background(NavigationLink("", destination:
-                                                    PaymentDetailsScreen(onBackPressed: {}, product: product, fields: [:])).opacity(0))
-                    .listRowSeparator(.hidden)
-                }
-    
+                VStack {
+                           ScrollView(.horizontal, showsIndicators: false) {
+                                         HStack(alignment: .center){
+                                             
+                                             ForEach(companies, id: \.self) {
+                                             c in
+                                                 Chips(systemImage: "", titleKey: c, isSelected: companies.firstIndex(of: c) == self.selectedIndex, onTap: { self.selectedIndex = companies.firstIndex(of: c)! })
+                                         }
+                                         
+                                         }.padding(.top, 13)
+                                     }.frame(height: 40).padding(.horizontal, 12)
+                                     
+                                     
+                                     List {
+                                         ForEach(filteredList.indices, id: \.self) {
+                                             x in
+                                             
+                                             let product  = filteredList[x]
+                                             
+                                             HStack {
+                                                 Image(systemName: "house.fill").renderingMode(.template)
+                                                     .foregroundColor(Color("mcgTeal"))
+                                                     .padding(0)
+                                                 
+                                                 VStack(alignment: .leading, spacing: 10) {
+                                                     Text(product.name)
+                                                         .font(metropolisBold14)
+                                                         .multilineTextAlignment(.leading)
+                                                         
+                                                                                      
+                                                     Text(product.productDetailPrefix.capitalized).font(metropolisRegularSM).foregroundColor(.gray)
+                                                     
+                                                 }.frame(
+                                                     minWidth: 0,
+                                                     maxWidth: .infinity,
+                                                     minHeight: 0,
+                                                     maxHeight: .infinity,
+                                                     alignment: .topLeading
+                                                   )
+                                                 
+                                                 var price = Double(product.price)!
+                                                 
+                                                 if(price < 1000.0) {
+                                                     Text("\(product.price)%").font(metropolisMedium)
+                                                 } else {
+                                                     Text("N\(product.price)").font(metropolisMedium)
+                                                 }
+                                             }.background(NavigationLink("", destination:
+                                                                             ProductInfoScreen(product: product)))
+                                             .listRowSeparator(.hidden)
+                                         }
+                             
+                                     }
+                       }
             }
             
-        }.onAppear {
-           // network.getProducts()
+       
+          
+            
+        }.task {
+            if(productList.isEmpty) {
+                isLoading = true
+                var response = await networkService.getProducts()
+                productList = response?.productDetails ?? []
+                
+                let defaults = UserDefaults.standard
+                
+                defaults.set(response?.businessDetails?.instanceID, forKey: DefaultsKeys.instanceId)
+                
+                companies = getCompanies()
+                isLoading = false
+            }
         }.navigationBarHidden(true)
             .background(.white)
     }

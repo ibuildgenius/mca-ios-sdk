@@ -14,6 +14,20 @@ struct ProductInfoScreen: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
+    
+    func continueButton() -> some View {
+        VStack {
+            Text("Continue")
+                .font(metropolisBold14)
+                .foregroundColor(Color.white)
+                .padding(.vertical, 9)
+               
+        }
+        .frame(maxWidth: .infinity)
+        .background(colorPrimary)
+        .padding(12)
+    }
+    
     var body: some View {
         
         // data to draw TabLayout View
@@ -42,10 +56,9 @@ struct ProductInfoScreen: View {
                                        case 0:
                                            PageView(image: "how_it_works", content: product.howItWorks)
                                        case 1:
-                                           PageView(image: "benefits", content: product.keyBenefits)
+                                           PageView(image: "benefits", content: "\(product.keyBenefits?.value ?? "")")
                                        case 2:
                                            PageView(image: "how_to_claim", content: product.howToClaim)
-                                           
                                        default:
                                            PageView(image: "how_to_claim", content: "Opp! you're in limbo")
                                        }
@@ -58,19 +71,28 @@ struct ProductInfoScreen: View {
                            }.frame(maxHeight: .infinity)
                            
                            
-                           NavigationLink(destination: ProductForms(product: product)) {
-                               VStack {
-                                   Text("Continue")
-                                       .font(metropolisBold14)
-                                       .foregroundColor(Color.white)
-                                       .padding(.vertical, 9)
-                                      
-                               }
-                               .frame(maxWidth: .infinity)
-                               .background(colorPrimary)
-                               .padding(12)
+                           
+                           if(product.formFields.isEmpty) {
                                
-                           }})
+                               
+                           
+                               
+                               NavigationLink(destination: PaymentDetailsScreen(onBackPressed: {presentationMode.wrappedValue.dismiss()}, product: product, fields: [:])) {
+                                 
+                                   continueButton()
+                                   
+                               }
+                            
+                           }else {
+                               NavigationLink(destination: ProductForms(product: product)) {
+                                  continueButton()
+                                   
+                               }
+                           }
+                         
+                           
+                           
+                       })
                     
                     
                     })

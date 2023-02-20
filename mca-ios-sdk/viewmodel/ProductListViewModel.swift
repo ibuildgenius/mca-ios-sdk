@@ -11,8 +11,6 @@ import SwiftUI
 
 class ProductListViewModel : ObservableObject {
     
-    
-    
     struct LoadedViewModel: Equatable {
 
            static func == (lhs: ProductListViewModel.LoadedViewModel, rhs: ProductListViewModel.LoadedViewModel) -> Bool {

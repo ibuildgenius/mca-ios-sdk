@@ -8,8 +8,8 @@ struct Chips: View {
     
     var body: some View {
         HStack {
-            Text(titleKey).font(metropolisRegularSM).lineLimit(1)
-        }.padding(.all, 6)
+            Text(titleKey).font(metropolisRegular).lineLimit(1)
+        }.padding(.all, 8)
         .foregroundColor(isSelected ? .white : colorPrimary)
         .background(isSelected ? colorPrimary : Color.white) //different UI for selected and not selected view
         .cornerRadius(40)  //rounded Corner

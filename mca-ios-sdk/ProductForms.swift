@@ -16,122 +16,180 @@ struct ProductForms: View {
     @State private var name: String = ""
     
     @State private var fields: [String: String] = [:]
+    @State private var selectItems: [String:[String]] = [:]
     
     @State private var showPayment = false
     
     @State private var currentFormSetIndex = 0
     @State private var date = Date()
     
-  
+    @State private var selectText = ""
+    
+    
+    func getSelectField(form: FormFieldElement) async {
+        if(form.dataURL != nil ) {
+            let res = await networkService.getSelectFieldOptions(url: form.dataURL!)
+            
+            if(res != nil && res?.responseCode == 1) {
+                selectItems[form.name] = res?.data
+                
+                print(" \(selectItems) ")
+            }
+        }
+    }
+    
     var body: some View {
-        
         
         if (!showPayment) {
             PageTemplate(onBackPressed: {
-            if(currentFormSetIndex > 0) {
-                currentFormSetIndex -= 1
-            }else {
-            presentationMode.wrappedValue.dismiss()
-            }
-            
-        }, mContent: {
-            
-            let formSet = product.formFields.sorted{$0.position < $1.position} .filter { $0.showFirst }.chunked(into: 3)
-            
-            return AnyView(VStack {
-                
-                HStack {
-                    Image(systemName: "info.circle.fill").resizable().frame(width: 15, height: 15).foregroundColor(colorPrimary)
-                    
-                    Text("Enter details as it appears on legal documents")
-                        .font(metropolisRegular13)
-                        .padding(.leading, 5)
-                }.padding(0)
-                
-                HStack {
-                    VStack{}.frame(maxWidth: .infinity)
-                    Text("Underwritten by: \(product.productDetailPrefix.capitalized)").font(metropolisRegularSM)
+                if(currentFormSetIndex > 0) {
+                    currentFormSetIndex -= 1
+                }else {
+                    presentationMode.wrappedValue.dismiss()
                 }
                 
+            }, mContent: {
                 
-                VStack {
-                    let forms = formSet[currentFormSetIndex]
+                let formSet = product.formFields.sorted{$0.position < $1.position} .filter { $0.showFirst }.chunked(into: 3)
+                
+                
+                
+                
+                return AnyView(VStack {
                     
-                    ForEach(forms) {form in
+                    HStack {
+                        Image(systemName: "info.circle.fill").resizable().frame(width: 15, height: 15).foregroundColor(colorPrimary)
                         
-                        VStack(alignment: .leading) {
+                        Text("Enter details as it appears on legal documents")
+                            .font(metropolisRegular13)
+                            .padding(.leading, 5)
+                    }.padding(0)
+                    
+                    HStack {
+                        VStack{}.frame(maxWidth: .infinity)
+                        Text("Underwritten by: \(product.productDetailPrefix.capitalized)").font(metropolisRegularSM)
+                    }
+                    
+                    
+                    VStack {
+                        let forms = formSet[currentFormSetIndex]
+                        
+                        
+                
+                        ForEach(forms) {form in
                             
-                            
-                            if(form.inputType == InputType.date) {
-                             
+                            VStack(alignment: .leading) {
+                                
+                                if(form.inputType == InputType.date) {
+                                    
+                                    CustomTextField(
+                                        label: "\(form.label) \(form.inputType)",
+                                        inputType: resolveKeyboardType(inputType: form.inputType),
+                                        hint: form.description,
+                                        disabled: true,
+                                        text: date.formatted(date: .long, time: .omitted),
+                                        onTap: {}
+                                    )
+                                    
+                                } else if(form.inputType == InputType.file) {
+                                    // Use custom content for the button label
+                                    FilePicker(types: [.plainText], allowMultiple: false) { urls in
+                                        print("selected \(urls.count) files")
+                                    } label: {
                                         CustomTextField(
                                             label: form.label,
                                             inputType: resolveKeyboardType(inputType: form.inputType),
                                             hint: form.description,
                                             disabled: true,
-                                            text: date.formatted(date: .long, time: .omitted),
-                                            onTap: {}
+                                            text: name
                                         )
+                                    }
+                                }
+                                
+                                else {
                                     
-                             
-        
-                            } else if(form.inputType == InputType.file) {
-                                // Use custom content for the button label
-                                FilePicker(types: [.plainText], allowMultiple: false) { urls in
-                                               print("selected \(urls.count) files")
-                                           } label: {
-                                               CustomTextField(
-                                                   label: form.label,
-                                                   inputType: resolveKeyboardType(inputType: form.inputType),
-                                                   hint: form.description,
-                                                   disabled: true,
-                                                   text: name
-                                               )
-                                           }
+                                    if(form.formField.name!.lowercased().contains("select")) {
+                                        if(selectItems[form.name] != nil) {
+                                            
+                                            
+                                    
+                                            Menu(content: {
+                                                ForEach(selectItems[form.name]!, id: \.self) {
+                                                    item in
+                                                    Button(item) {
+                                                        fields[form.name] = item
+                                                    }
+                                                }
+                                            }, label: {
+                                                CustomTextField(
+                                                    label: "\(form.label)",
+                                                    inputType: resolveKeyboardType(inputType: form.inputType),
+                                                    hint: "\(fields[form.name] ?? form.description)",
+                                                    disabled: true,
+                                                    text: "\(fields[form.name] ?? "")",
+                                                    onTap: {}
+                                                )
+                                            })
+                                         
+                                        } else {
+                                            CustomTextField(
+                                                label: "\(form.label)",
+                                                inputType: resolveKeyboardType(inputType: form.inputType),
+                                                hint: form.description,
+                                                disabled: true,
+                                                text: "",
+                                                onTap: {}
+                                            )
+                                        }
+                                    } else {
+                                    
+                                        CustomTextField(
+                                            label: form.label,
+                                            inputType: resolveKeyboardType(inputType: form.inputType),
+                                            hint: form.description,
+                                            disabled: false,
+                                            text: fields[form.name] ?? "",
+                                            onTap: {
+                                                print("\(form.label) is \(fields[form.label] ?? "")")
+                                            },
+                                            onChange: {value in
+                                                fields[form.name] = value
+                                                print(value)
+                                            }
+                                        )
+                                    }
+                                }
+                                
+                                
+                            }.padding(.vertical, 4).task {
+                                let _: () = await getSelectField(form: form)
                             }
                             
-                            else {
-                                CustomTextField(
-                                    label: form.label,
-                                    inputType: resolveKeyboardType(inputType: form.inputType),
-                                    hint: form.description,
-                                    disabled: false,
-                                    text: fields[form.label] ?? "",
-                                    onTap: {
-                                        print("\(form.label) is \(fields[form.label] ?? "")")
-                                    },
-                                    onChange: {value in
-                                        fields[form.label] = value
-                                        print(value)
-                                    }
-                                )
-                            }
-                        }.padding(.vertical, 4)
-                        
+                        }
+                    }.padding(.top,15)
+                    
+                    VStack {}.frame(maxHeight: .infinity)
+                    
+                    Button("Continue") {
+                        if (currentFormSetIndex < formSet.count  - 1) {
+                            currentFormSetIndex += 1
+                        } else {
+                            fields["product_id"] = product.id
+                            showPayment = true
+                        }
+                        print("index \(currentFormSetIndex) count \(formSet.count) \(formSet.indices)")
                     }
-                }.padding(.top,15)
-                
-                VStack {}.frame(maxHeight: .infinity)
-                
-                Button("Continue") {
-                    if (currentFormSetIndex < formSet.count  - 1) {
-                        currentFormSetIndex += 1
-                    } else {
-                        showPayment = true
-                    }
-                    print("index \(currentFormSetIndex) count \(formSet.count) \(formSet.indices)")
-                }
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 12)
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 12)
                     .padding(.vertical, 10)
                     .foregroundColor(.white)
                     .background(colorPrimary)
                     .clipShape(Capsule())
-                   
-            }
-                .padding(.horizontal, 12)
-            )
-        }).navigationBarHidden(true)
+                    
+                }
+                    .padding(.horizontal, 12)
+                )
+            }).navigationBarHidden(true)
         } else {
             PaymentDetailsScreen(onBackPressed: {
                 showPayment.toggle()
@@ -185,7 +243,7 @@ struct SwiftUIWrapper<T: View>: UIViewControllerRepresentable {
 
 
 extension Binding {
-     func toUnwrapped<T>(defaultValue: T) -> Binding<T> where Value == Optional<T>  {
+    func toUnwrapped<T>(defaultValue: T) -> Binding<T> where Value == Optional<T>  {
         Binding<T>(get: { self.wrappedValue ?? defaultValue }, set: { self.wrappedValue = $0 })
     }
 }

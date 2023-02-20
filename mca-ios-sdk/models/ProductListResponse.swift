@@ -10,6 +10,7 @@ import Foundation
 //   let productPurchaseResponse = try? JSONDecoder().decode(ProductPurchaseResponse.self, from: jsonData)
 
 import Foundation
+import AnyCodable
 
 // MARK: - ProductPurchaseResponse
 struct ProductListResponse: Decodable {
@@ -28,12 +29,12 @@ struct DataClass: Decodable {
 struct BusinessDetails: Decodable {
     let debitWallet: Bool
     let logo, colorTheme: JSONNull?
-    let dataValues, previousDataValues: DataValues
-    let uniqno: Int
-    let changed: Changed
-    let options: Options
-    let isNewRecord: Bool
-    let instanceID: String
+    let dataValues, previousDataValues: DataValues?
+    let uniqno: Int?
+    let changed: Changed?
+    let options: Options?
+    let isNewRecord: Bool?
+    let instanceID: String?
     let paymentChannels: [String]
 
     enum CodingKeys: String, CodingKey {
@@ -87,7 +88,7 @@ struct ProductDetail: Decodable {
     let id: String
     let isLive: Bool
     let name: String
-    let keyBenefits: String?
+    let keyBenefits: AnyDecodable?
     let fullBenefits: FullBenefits
     let description: String
     let meta: Meta
@@ -186,9 +187,9 @@ enum DataType: String, Decodable {
 // MARK: - FormFieldFormField
 struct FormFieldFormField: Decodable {
     let id: String
-    let name: Name
-    let label: Label
-    let createdAt, updatedAt: AtedAt
+    let name: String?
+    let label: String?
+    let createdAt, updatedAt: String?
 
     enum CodingKeys: String, CodingKey {
         case id, name, label
