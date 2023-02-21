@@ -12,6 +12,7 @@ protocol NetworkServiceable {
     func intiatePurchase(payload: [String: Any]) async -> [String: Any]?
     func getBanks() async -> BankResponse?
     func getSelectFieldOptions(url: String) async -> SelectResponse?
+    func verifyTransaction(reference: String) async -> TransactionResponse?
     
 }
 
@@ -26,6 +27,42 @@ fileprivate extension URLRequest {
 }
 
 class NetworkService: NetworkServiceable {
+    
+    func verifyTransaction(reference: String) async -> TransactionResponse? {
+        let urlString = "\(baseURLString)/v1/sdk/verify-transaction"
+
+        guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
+        
+        var request = URLRequest(url: url)
+        
+        let bodyJson = try! JSONSerialization.data(withJSONObject: ["transaction_reference": reference])
+        
+        request.httpMethod = "post"
+        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = bodyJson
+        do {
+            
+            request.debug()
+            
+            let (data, _) = try await URLSession.shared.data(for: request)
+            
+            do {
+                let x = try JSONDecoder().decode(TransactionResponse.self,  from: data)
+                print(x)
+                return x
+            } catch {
+                print(error)
+            }
+            
+        } catch {
+            print("Invalid data")
+        }
+    
+        return nil
+    }
+    
+    
     func getSelectFieldOptions(url: String) async -> SelectResponse? {
         
         
@@ -61,12 +98,9 @@ class NetworkService: NetworkServiceable {
         return nil
     }
     
-
-    
     
     @Published var products: [ProductDetail] = []
     
-   
     
     let baseURLString: String
     

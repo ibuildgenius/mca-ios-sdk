@@ -19,6 +19,10 @@
 		2625166E2983D11100FD5114 /* TabLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625166D2983D11100FD5114 /* TabLayoutView.swift */; };
 		2625167329840DFA00FD5114 /* HtmlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2625167229840DFA00FD5114 /* HtmlView.swift */; };
 		262516752984227F00FD5114 /* PageTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 262516742984227F00FD5114 /* PageTemplate.swift */; };
+		2630C7CA29A4B96C00B6E9C1 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2630C7C929A4B96C00B6E9C1 /* Lottie */; };
+		2630C7CC29A4CD3D00B6E9C1 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2630C7CB29A4CD3D00B6E9C1 /* loading.json */; };
+		2630C7CE29A4CDFD00B6E9C1 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630C7CD29A4CDFD00B6E9C1 /* LottieView.swift */; };
+		2630C7D029A4D11300B6E9C1 /* TransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */; };
 		265531F6299E4D25001EB3F5 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 265531F5299E4D25001EB3F5 /* AnyCodable */; };
 		265531F8299E7E2C001EB3F5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265531F7299E7E2C001EB3F5 /* Constants.swift */; };
 		265531FB299F58EE001EB3F5 /* PusherSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 265531FA299F58EE001EB3F5 /* PusherSwift */; };
@@ -80,6 +84,9 @@
 		2625166D2983D11100FD5114 /* TabLayoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabLayoutView.swift; sourceTree = "<group>"; };
 		2625167229840DFA00FD5114 /* HtmlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HtmlView.swift; sourceTree = "<group>"; };
 		262516742984227F00FD5114 /* PageTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageTemplate.swift; sourceTree = "<group>"; };
+		2630C7CB29A4CD3D00B6E9C1 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
+		2630C7CD29A4CDFD00B6E9C1 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionResponse.swift; sourceTree = "<group>"; };
 		265531F7299E7E2C001EB3F5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		265531FC299F591B001EB3F5 /* PusherClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherClient.swift; sourceTree = "<group>"; };
 		266FBDFB298AB99100566209 /* Metropolis-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Medium.otf"; sourceTree = "<group>"; };
@@ -118,6 +125,7 @@
 				265531FB299F58EE001EB3F5 /* PusherSwift in Frameworks */,
 				265531F6299E4D25001EB3F5 /* AnyCodable in Frameworks */,
 				266FBE02298B09D800566209 /* FilePicker in Frameworks */,
+				2630C7CA29A4B96C00B6E9C1 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +160,7 @@
 		26EC7C14292CEE4D00905CD0 = {
 			isa = PBXGroup;
 			children = (
+				2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */,
 				26F455E229A29EE500F011A5 /* SelectResponse.swift */,
 				26F455DE29A1300D00F011A5 /* PaymentMethodCard.swift */,
 				262516632982DC5600FD5114 /* Chip.swift */,
@@ -182,12 +191,14 @@
 				26EC7C22292CEE4D00905CD0 /* ProductListView.swift */,
 				265531F7299E7E2C001EB3F5 /* Constants.swift */,
 				2625165F2982CFA800FD5114 /* Sample.swift */,
+				2630C7CB29A4CD3D00B6E9C1 /* loading.json */,
 				262516612982D06300FD5114 /* sample */,
 				2625165A2982A9E100FD5114 /* models */,
 				262516592982A9E100FD5114 /* network */,
 				2625165B2982A9E100FD5114 /* viewmodel */,
 				26DBC5502982A2B60076605C /* ProductForms.swift */,
 				26EFF255298D156A0025039F /* PaymentDetailsScreen.swift */,
+				2630C7CD29A4CDFD00B6E9C1 /* LottieView.swift */,
 				26F455E029A1773300F011A5 /* Bank.swift */,
 				265531FC299F591B001EB3F5 /* PusherClient.swift */,
 				266FBDFE298ABBC100566209 /* CustomTextField.swift */,
@@ -253,6 +264,7 @@
 				266FBE01298B09D800566209 /* FilePicker */,
 				265531F5299E4D25001EB3F5 /* AnyCodable */,
 				265531FA299F58EE001EB3F5 /* PusherSwift */,
+				2630C7C929A4B96C00B6E9C1 /* Lottie */,
 			);
 			productName = "mca-ios-sdk";
 			productReference = 26EC7C1D292CEE4D00905CD0 /* mca-ios-sdk.app */;
@@ -330,6 +342,7 @@
 				266FBE00298B09D800566209 /* XCRemoteSwiftPackageReference "FilePicker" */,
 				265531F4299E4D25001EB3F5 /* XCRemoteSwiftPackageReference "AnyCodable" */,
 				265531F9299F58EE001EB3F5 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */,
+				2630C7C829A4B96C00B6E9C1 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 26EC7C1E292CEE4D00905CD0 /* Products */;
 			projectDirPath = "";
@@ -351,6 +364,7 @@
 				2625165E2982A9E100FD5114 /* viewmodel in Resources */,
 				266FBE06298B120F00566209 /* Metropolis-Regular.otf in Resources */,
 				266FBE05298B120500566209 /* Metropolis-Medium.otf in Resources */,
+				2630C7CC29A4CD3D00B6E9C1 /* loading.json in Resources */,
 				262516622982D06300FD5114 /* sample in Resources */,
 				2625165C2982A9E100FD5114 /* network in Resources */,
 				266FBE07298B121200566209 /* Metropolis-Bold.otf in Resources */,
@@ -383,8 +397,10 @@
 			files = (
 				265531FD299F591B001EB3F5 /* PusherClient.swift in Sources */,
 				26DBC549297FDAF10076605C /* LoadingState.swift in Sources */,
+				2630C7CE29A4CDFD00B6E9C1 /* LottieView.swift in Sources */,
 				26EFF256298D156A0025039F /* PaymentDetailsScreen.swift in Sources */,
 				2625166A2983CE5100FD5114 /* TabDataModel.swift in Sources */,
+				2630C7D029A4D11300B6E9C1 /* TransactionResponse.swift in Sources */,
 				262516662983C68200FD5114 /* Colors.swift in Sources */,
 				262516752984227F00FD5114 /* PageTemplate.swift in Sources */,
 				262516642982DC5600FD5114 /* Chip.swift in Sources */,
@@ -729,6 +745,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2630C7C829A4B96C00B6E9C1 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		265531F4299E4D25001EB3F5 /* XCRemoteSwiftPackageReference "AnyCodable" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Flight-School/AnyCodable";
@@ -756,6 +780,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2630C7C929A4B96C00B6E9C1 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2630C7C829A4B96C00B6E9C1 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		265531F5299E4D25001EB3F5 /* AnyCodable */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 265531F4299E4D25001EB3F5 /* XCRemoteSwiftPackageReference "AnyCodable" */;

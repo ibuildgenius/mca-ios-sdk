@@ -104,8 +104,7 @@ struct ProductListView: View {
                                                  } else {
                                                      Text("N\(product.price)").font(metropolisMedium)
                                                  }
-                                             }.background(NavigationLink("", destination:
-                                                                             ProductInfoScreen(product: product)))
+                                             }.background(NavigationLink("", destination:ProductInfoScreen(product: product)))
                                              .listRowSeparator(.hidden)
                                          }
                              

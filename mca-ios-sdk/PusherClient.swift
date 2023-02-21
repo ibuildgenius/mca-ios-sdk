@@ -12,7 +12,6 @@ func listenForPaymentUpdate(ref: String) {
     
     print("reference \(ref)")
     
-    
     let options = PusherClientOptions(
       host: .cluster("us2")
       )
@@ -20,18 +19,19 @@ func listenForPaymentUpdate(ref: String) {
     
       let pusher = Pusher(key: PUSHER_APP_KEY, options: options)
     
-    pusher.connect()
     
     
-    let channel = pusher.subscribe(channelName: "cache-\(ref)")
+    
+    let channel = pusher.subscribe(channelName: "cache-\(ref.trimmingCharacters(in: .whitespacesAndNewlines))")
 
     print(channel.name)
     
-    let _ = channel.bind(eventName: "transaction_successful", eventCallback: {
+     channel.bind(eventName: "transaction_successful", eventCallback: {
         pusherEvent in
         
         print("\(pusherEvent.description)")
-        print("\(pusherEvent.channelName)")
+        print("\(pusherEvent.channelName ?? "event received")")
     })
     
+    pusher.connect()
 }

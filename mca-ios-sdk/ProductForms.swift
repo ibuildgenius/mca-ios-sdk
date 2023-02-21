@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FilePicker
+import AnyCodable
 
 struct ProductForms: View {
     let product: ProductDetail
@@ -15,8 +16,8 @@ struct ProductForms: View {
     
     @State private var name: String = ""
     
-    @State private var fields: [String: String] = [:]
-    @State private var selectItems: [String:[String]] = [:]
+    @State private var fields: [String: Any] = [:]
+    @State private var selectItems: [String:[AnyDecodable]] = [:]
     
     @State private var showPayment = false
     
@@ -110,14 +111,12 @@ struct ProductForms: View {
                                     
                                     if(form.formField.name!.lowercased().contains("select")) {
                                         if(selectItems[form.name] != nil) {
-                                            
-                                            
-                                    
+                                        
                                             Menu(content: {
                                                 ForEach(selectItems[form.name]!, id: \.self) {
                                                     item in
-                                                    Button(item) {
-                                                        fields[form.name] = item
+                                                    Button("\(item.description)") {
+                                                        fields[form.name] = item.value
                                                     }
                                                 }
                                             }, label: {
@@ -132,14 +131,7 @@ struct ProductForms: View {
                                             })
                                          
                                         } else {
-                                            CustomTextField(
-                                                label: "\(form.label)",
-                                                inputType: resolveKeyboardType(inputType: form.inputType),
-                                                hint: form.description,
-                                                disabled: true,
-                                                text: "",
-                                                onTap: {}
-                                            )
+                                     
                                         }
                                     } else {
                                     
@@ -148,13 +140,20 @@ struct ProductForms: View {
                                             inputType: resolveKeyboardType(inputType: form.inputType),
                                             hint: form.description,
                                             disabled: false,
-                                            text: fields[form.name] ?? "",
+                                            text: "\(fields[form.name] as? String ?? "") ",
                                             onTap: {
                                                 print("\(form.label) is \(fields[form.label] ?? "")")
                                             },
                                             onChange: {value in
-                                                fields[form.name] = value
-                                                print(value)
+                                                
+                                                if(form.dataType == DataType.number) {
+                                                    fields[form.name] = Int(value.trimmingCharacters(in: .whitespacesAndNewlines))
+                                                } else {
+                                                    fields[form.name] = value.trimmingCharacters(in: .whitespacesAndNewlines)
+                                                }
+                                                 
+                                                print(value.description)
+                                                print("form field value \(form.dataType) \(fields[form.name] ?? "")")
                                             }
                                         )
                                     }
