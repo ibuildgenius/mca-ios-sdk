@@ -7,6 +7,7 @@
 
 import SwiftUI
 import AnyCodable
+import SwiftUI_NotificationBanner
 
 enum Display {
     case transactionType
@@ -19,6 +20,8 @@ struct PaymentDetailsScreen: View {
     let onBackPressed: (() -> Void)
     let product: ProductDetail
     let fields: [String: Any]
+    
+   @EnvironmentObject var notificationHandler:  DYNotificationHandler
     
     @State private var display = Display.transactionType
     
@@ -35,6 +38,9 @@ struct PaymentDetailsScreen: View {
     @State private var isTransfer = true
     
     @State private var selectedBank: Bank? = nil
+    
+    @State private var responseText = ""
+    @State private var showAlert = false
     
     func format() -> [String: Any] {
         let defaults = UserDefaults.standard
@@ -61,6 +67,7 @@ struct PaymentDetailsScreen: View {
        
         let code = (result!["responseCode"] as! AnyDecodable).value as! Int
         
+        
         if(result != nil && code == 1) {
             buttonText = "I have sent the money"
             bankDetails = (result!["data"] as! AnyDecodable).value as! [String: Any]
@@ -70,14 +77,26 @@ struct PaymentDetailsScreen: View {
             if((bankDetails["reference"] as? String) != nil) {
                 listenForPaymentUpdate(ref: bankDetails["reference"] as! String)
             }
+        } else {
+        
+            let rsText = (result!["responseText"] as! AnyDecodable).value as! String
+            
+            print("failed \(responseText)")
+            
+            responseText = rsText
+            
+            showAlert = true
+            
+            
+        
         }
-          
-
     }
     
     private func verifyTransaction() async {
         
-        let response = await networkService.verifyTransaction(reference: bankDetails["reference"] as! String)
+        let ref = ( bankDetails["reference"] as! String)
+        
+        let response = await networkService.verifyTransaction(reference: ref)
         
         if response != nil && (response!.responseText.contains("Verified successfully")) {
             
@@ -94,6 +113,7 @@ struct PaymentDetailsScreen: View {
     
     var body: some View {
         
+      
         ZStack {
             PageTemplate(onBackPressed: onBackPressed, mContent: {
                 
@@ -235,16 +255,23 @@ struct PaymentDetailsScreen: View {
                 
             }
             
-            if(true) {
+            if(isBusy) {
                 VStack(alignment: .center) {
                     LottieView(lottieFile: "loading", loopMode: .loop)
                                                .frame(width: 180, height: 180)
-                    Text("Please wait...").font(metropolisBold18).foregroundColor(Color.white)
+                    Text("Please  wait...").font(metropolisBold18).foregroundColor(Color.white)
                     
                 }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center).background(Color.gray.opacity(0.8))
                
             }
+        }   .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Transaction Failed"),
+                message: Text(responseText),
+                dismissButton: .default(Text("Ok"))
+            )
         }
+        
        
     }
 }

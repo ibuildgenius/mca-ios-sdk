@@ -23,6 +23,7 @@
 		2630C7CC29A4CD3D00B6E9C1 /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2630C7CB29A4CD3D00B6E9C1 /* loading.json */; };
 		2630C7CE29A4CDFD00B6E9C1 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630C7CD29A4CDFD00B6E9C1 /* LottieView.swift */; };
 		2630C7D029A4D11300B6E9C1 /* TransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */; };
+		2630C7D329A685F200B6E9C1 /* SwiftUI_NotificationBanner in Frameworks */ = {isa = PBXBuildFile; productRef = 2630C7D229A685F200B6E9C1 /* SwiftUI_NotificationBanner */; };
 		265531F6299E4D25001EB3F5 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 265531F5299E4D25001EB3F5 /* AnyCodable */; };
 		265531F8299E7E2C001EB3F5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265531F7299E7E2C001EB3F5 /* Constants.swift */; };
 		265531FB299F58EE001EB3F5 /* PusherSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 265531FA299F58EE001EB3F5 /* PusherSwift */; };
@@ -122,6 +123,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2630C7D329A685F200B6E9C1 /* SwiftUI_NotificationBanner in Frameworks */,
 				265531FB299F58EE001EB3F5 /* PusherSwift in Frameworks */,
 				265531F6299E4D25001EB3F5 /* AnyCodable in Frameworks */,
 				266FBE02298B09D800566209 /* FilePicker in Frameworks */,
@@ -265,6 +267,7 @@
 				265531F5299E4D25001EB3F5 /* AnyCodable */,
 				265531FA299F58EE001EB3F5 /* PusherSwift */,
 				2630C7C929A4B96C00B6E9C1 /* Lottie */,
+				2630C7D229A685F200B6E9C1 /* SwiftUI_NotificationBanner */,
 			);
 			productName = "mca-ios-sdk";
 			productReference = 26EC7C1D292CEE4D00905CD0 /* mca-ios-sdk.app */;
@@ -343,6 +346,7 @@
 				265531F4299E4D25001EB3F5 /* XCRemoteSwiftPackageReference "AnyCodable" */,
 				265531F9299F58EE001EB3F5 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */,
 				2630C7C829A4B96C00B6E9C1 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				2630C7D129A685F200B6E9C1 /* XCRemoteSwiftPackageReference "SwiftUI_NotificationBanner" */,
 			);
 			productRefGroup = 26EC7C1E292CEE4D00905CD0 /* Products */;
 			projectDirPath = "";
@@ -753,6 +757,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		2630C7D129A685F200B6E9C1 /* XCRemoteSwiftPackageReference "SwiftUI_NotificationBanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DominikButz/SwiftUI_NotificationBanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.1;
+			};
+		};
 		265531F4299E4D25001EB3F5 /* XCRemoteSwiftPackageReference "AnyCodable" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Flight-School/AnyCodable";
@@ -784,6 +796,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2630C7C829A4B96C00B6E9C1 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		2630C7D229A685F200B6E9C1 /* SwiftUI_NotificationBanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2630C7D129A685F200B6E9C1 /* XCRemoteSwiftPackageReference "SwiftUI_NotificationBanner" */;
+			productName = SwiftUI_NotificationBanner;
 		};
 		265531F5299E4D25001EB3F5 /* AnyCodable */ = {
 			isa = XCSwiftPackageProductDependency;

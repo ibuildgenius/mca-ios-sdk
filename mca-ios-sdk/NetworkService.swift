@@ -65,7 +65,6 @@ class NetworkService: NetworkServiceable {
     
     func getSelectFieldOptions(url: String) async -> SelectResponse? {
         
-        
         let urlString = "\(baseURLString)/v1\(url)"
 
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
