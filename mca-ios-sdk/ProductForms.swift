@@ -15,16 +15,13 @@ struct ProductForms: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State private var name: String = ""
-    
     @State private var fields: [String: Any] = [:]
     @State private var selectItems: [String:[AnyDecodable]] = [:]
-    
     @State private var showPayment = false
-    
     @State private var currentFormSetIndex = 0
-    @State private var date = Date()
-    
+    @State private var date: Date? = Date()
     @State private var selectText = ""
+    @State private var files: [String: URL] = [:]
     
     
     func getSelectField(form: FormFieldElement) async {
@@ -74,28 +71,37 @@ struct ProductForms: View {
                     
                     VStack {
                         let forms = formSet[currentFormSetIndex]
-                        
-                        
-                
                         ForEach(forms) {form in
                             
                             VStack(alignment: .leading) {
                                 
                                 if(form.inputType == InputType.date) {
+
+                                   Text(form.label).font(metropolisRegularSM)
+
+                                    DatePickerTextField(placeholder: "", date: $date, onDateChange: {
+                                        value in
+
+                                        fields[form.name] = value
+
+                                        print(value)
+
+                                    }).padding(.all, 7)
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 8)
+                                                .stroke(.gray, lineWidth: 1)
+                                        )
+                                        .background(Color.gray.opacity(0.1))
                                     
-                                    CustomTextField(
-                                        label: "\(form.label) \(form.inputType)",
-                                        inputType: resolveKeyboardType(inputType: form.inputType),
-                                        hint: form.description,
-                                        disabled: true,
-                                        text: date.formatted(date: .long, time: .omitted),
-                                        onTap: {}
-                                    )
+                                    
+                            
                                     
                                 } else if(form.inputType == InputType.file) {
-                                    // Use custom content for the button label
                                     FilePicker(types: [.plainText], allowMultiple: false) { urls in
-                                        print("selected \(urls.count) files")
+                                        print("selected \(urls[0]) files")
+                                        if (urls[0] != nil) {
+                                            files[form.name] = urls[0]
+                                        }
                                     } label: {
                                         CustomTextField(
                                             label: form.label,
@@ -192,7 +198,7 @@ struct ProductForms: View {
         } else {
             PaymentDetailsScreen(onBackPressed: {
                 showPayment.toggle()
-            },  product: product, fields: fields)
+            },  product: product, fields: fields, files: files)
         }
         
     }

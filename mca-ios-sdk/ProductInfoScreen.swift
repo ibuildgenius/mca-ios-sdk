@@ -74,7 +74,7 @@ struct ProductInfoScreen: View {
                            
                            if(product.formFields.isEmpty) {
                                
-                               NavigationLink(destination: PaymentDetailsScreen(onBackPressed: {presentationMode.wrappedValue.dismiss()}, product: product, fields: [:])) {
+                               NavigationLink(destination: PaymentDetailsScreen(onBackPressed: {presentationMode.wrappedValue.dismiss()}, product: product, fields: [:], files: [:])) {
                                  
                                    continueButton()
                                    

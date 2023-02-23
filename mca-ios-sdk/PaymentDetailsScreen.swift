@@ -20,6 +20,7 @@ struct PaymentDetailsScreen: View {
     let onBackPressed: (() -> Void)
     let product: ProductDetail
     let fields: [String: Any]
+    let files: [String: URL]
     
    @EnvironmentObject var notificationHandler:  DYNotificationHandler
     
@@ -56,8 +57,19 @@ struct PaymentDetailsScreen: View {
         return paymentPayload
     }
     
+    
+    
     func getFilteredBanks() -> [Bank] {
         return banks.filter{ $0.isValid()}
+    }
+    
+    func uploadFiles() async {
+        if(!files.isEmpty) {
+            files.keys.forEach { key in
+                
+                
+            }
+        }
     }
     
     func initiatePurchase() async {

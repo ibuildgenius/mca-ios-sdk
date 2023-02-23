@@ -28,7 +28,7 @@ struct CustomTextField: View {
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(.gray, lineWidth: 1)
                     )
-                    .background(Color.gray.opacity(0.2))
+                    .background(Color.gray.opacity(0.1))
                     .keyboardType(inputType)
                     .disabled(disabled)
                 
@@ -42,7 +42,7 @@ struct CustomTextField: View {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(.gray, lineWidth: 1)
                 )
-                .background(Color.gray.opacity(0.2))
+                .background(Color.gray.opacity(0.1))
                 .onChange(of: text, perform: onChange ?? {val in })
                 .keyboardType(inputType)
                 .disabled(disabled)

@@ -13,6 +13,7 @@ protocol NetworkServiceable {
     func getBanks() async -> BankResponse?
     func getSelectFieldOptions(url: String) async -> SelectResponse?
     func verifyTransaction(reference: String) async -> TransactionResponse?
+    func uploadFile(file: URL) async -> String?
     
 }
 
@@ -27,6 +28,42 @@ fileprivate extension URLRequest {
 }
 
 class NetworkService: NetworkServiceable {
+    
+    
+    func uploadFile(file: URL) async -> String? {
+        let urlString = "\(baseURLString)/v1/sdk/verify-transaction"
+
+        guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
+        
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "post"
+        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        request.debug()
+        
+        do {
+            let (data, _) = try await URLSession.shared.upload(for: request, fromFile: file)
+            
+            do {
+                let x = try JSONDecoder().decode(TransactionResponse.self,  from: data)
+                print(x)
+                return "success"
+            } catch {
+                print(error)
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+     
+        
+        
+        return nil
+    }
+    
     
     func verifyTransaction(reference: String) async -> TransactionResponse? {
         let urlString = "\(baseURLString)/v1/sdk/verify-transaction"
