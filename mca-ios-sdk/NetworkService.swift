@@ -31,15 +31,18 @@ class NetworkService: NetworkServiceable {
     
     
     func uploadFile(file: URL) async -> String? {
-        let urlString = "\(baseURLString)/v1/sdk/verify-transaction"
+        let urlString = "\(baseURLString)/v1/upload-file"
 
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
+        
+        let bodyJson = try! JSONSerialization.data(withJSONObject: ["fileType": "image"])
         
         var request = URLRequest(url: url)
         
         request.httpMethod = "post"
         request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = bodyJson
         
         request.debug()
         
