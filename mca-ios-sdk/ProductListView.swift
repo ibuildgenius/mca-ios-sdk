@@ -97,7 +97,7 @@ struct ProductListView: View {
                                                      alignment: .topLeading
                                                    )
                                                  
-                                                 var price = Double(product.price)!
+                                                 let price = Double(product.price)!
                                                  
                                                  if(price < 1000.0) {
                                                      Text("\(product.price)%").font(metropolisMedium)

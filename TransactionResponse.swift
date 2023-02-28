@@ -11,7 +11,7 @@ import AnyCodable
 struct TransactionResponse: Decodable {
     let responseText: String
     let responseCode: Int
-    let data: [String: TransactionData]?
+    let data: TransactionData?
 }
 
 struct TransactionData: Decodable {

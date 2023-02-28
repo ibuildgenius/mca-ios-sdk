@@ -28,6 +28,11 @@
 		265531F8299E7E2C001EB3F5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265531F7299E7E2C001EB3F5 /* Constants.swift */; };
 		265531FB299F58EE001EB3F5 /* PusherSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 265531FA299F58EE001EB3F5 /* PusherSwift */; };
 		265531FD299F591B001EB3F5 /* PusherClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265531FC299F591B001EB3F5 /* PusherClient.swift */; };
+		266789FC29AC8F2F00796B05 /* LoadingOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266789FB29AC8F2F00796B05 /* LoadingOverlay.swift */; };
+		26678A0029ACEA3E00796B05 /* FileUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266789FF29ACEA3E00796B05 /* FileUpload.swift */; };
+		26678A0629AE0B4700796B05 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 26678A0529AE0B4700796B05 /* Alamofire */; };
+		26678A0A29AE19C600796B05 /* UploadResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26678A0929AE19C600796B05 /* UploadResponse.swift */; };
+		26678A0C29AE423B00796B05 /* check.json in Resources */ = {isa = PBXBuildFile; fileRef = 26678A0B29AE423B00796B05 /* check.json */; };
 		266FBDFF298ABBC100566209 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266FBDFE298ABBC100566209 /* CustomTextField.swift */; };
 		266FBE02298B09D800566209 /* FilePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 266FBE01298B09D800566209 /* FilePicker */; };
 		266FBE04298B120200566209 /* Solitreo-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 266FBE03298B106800566209 /* Solitreo-Regular.ttf */; };
@@ -95,6 +100,10 @@
 		2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionResponse.swift; sourceTree = "<group>"; };
 		265531F7299E7E2C001EB3F5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		265531FC299F591B001EB3F5 /* PusherClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherClient.swift; sourceTree = "<group>"; };
+		266789FB29AC8F2F00796B05 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
+		266789FF29ACEA3E00796B05 /* FileUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileUpload.swift; sourceTree = "<group>"; };
+		26678A0929AE19C600796B05 /* UploadResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadResponse.swift; sourceTree = "<group>"; };
+		26678A0B29AE423B00796B05 /* check.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = check.json; sourceTree = "<group>"; };
 		266FBDFB298AB99100566209 /* Metropolis-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Medium.otf"; sourceTree = "<group>"; };
 		266FBDFC298AB99100566209 /* Metropolis-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Bold.otf"; sourceTree = "<group>"; };
 		266FBDFD298AB99100566209 /* Metropolis-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Regular.otf"; sourceTree = "<group>"; };
@@ -136,6 +145,7 @@
 				2630C7D329A685F200B6E9C1 /* SwiftUI_NotificationBanner in Frameworks */,
 				265531FB299F58EE001EB3F5 /* PusherSwift in Frameworks */,
 				265531F6299E4D25001EB3F5 /* AnyCodable in Frameworks */,
+				26678A0629AE0B4700796B05 /* Alamofire in Frameworks */,
 				266FBE02298B09D800566209 /* FilePicker in Frameworks */,
 				2630C7CA29A4B96C00B6E9C1 /* Lottie in Frameworks */,
 			);
@@ -172,6 +182,9 @@
 		26EC7C14292CEE4D00905CD0 = {
 			isa = PBXGroup;
 			children = (
+				26678A0929AE19C600796B05 /* UploadResponse.swift */,
+				266789FF29ACEA3E00796B05 /* FileUpload.swift */,
+				266789FB29AC8F2F00796B05 /* LoadingOverlay.swift */,
 				26E904A329A7C021009B9FE8 /* ImagePicker.swift */,
 				2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */,
 				26F455E229A29EE500F011A5 /* SelectResponse.swift */,
@@ -209,6 +222,7 @@
 				265531F7299E7E2C001EB3F5 /* Constants.swift */,
 				2625165F2982CFA800FD5114 /* Sample.swift */,
 				2630C7CB29A4CD3D00B6E9C1 /* loading.json */,
+				26678A0B29AE423B00796B05 /* check.json */,
 				262516612982D06300FD5114 /* sample */,
 				2625165A2982A9E100FD5114 /* models */,
 				262516592982A9E100FD5114 /* network */,
@@ -283,6 +297,7 @@
 				265531FA299F58EE001EB3F5 /* PusherSwift */,
 				2630C7C929A4B96C00B6E9C1 /* Lottie */,
 				2630C7D229A685F200B6E9C1 /* SwiftUI_NotificationBanner */,
+				26678A0529AE0B4700796B05 /* Alamofire */,
 			);
 			productName = "mca-ios-sdk";
 			productReference = 26EC7C1D292CEE4D00905CD0 /* mca-ios-sdk.app */;
@@ -362,6 +377,7 @@
 				265531F9299F58EE001EB3F5 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */,
 				2630C7C829A4B96C00B6E9C1 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				2630C7D129A685F200B6E9C1 /* XCRemoteSwiftPackageReference "SwiftUI_NotificationBanner" */,
+				26678A0429AE0B4600796B05 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = 26EC7C1E292CEE4D00905CD0 /* Products */;
 			projectDirPath = "";
@@ -379,6 +395,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26678A0C29AE423B00796B05 /* check.json in Resources */,
 				2625165D2982A9E100FD5114 /* models in Resources */,
 				2625165E2982A9E100FD5114 /* viewmodel in Resources */,
 				266FBE06298B120F00566209 /* Metropolis-Regular.otf in Resources */,
@@ -429,6 +446,7 @@
 				26E9049C29A75381009B9FE8 /* Globals.swift in Sources */,
 				26DBC545297FD55E0076605C /* ProductListResponse.swift in Sources */,
 				26DBC54B297FDC610076605C /* ProductListViewModel.swift in Sources */,
+				266789FC29AC8F2F00796B05 /* LoadingOverlay.swift in Sources */,
 				266FBDFF298ABBC100566209 /* CustomTextField.swift in Sources */,
 				26F455DF29A1300D00F011A5 /* PaymentMethodCard.swift in Sources */,
 				26EC7C23292CEE4D00905CD0 /* ProductListView.swift in Sources */,
@@ -440,9 +458,11 @@
 				26E904A429A7C021009B9FE8 /* ImagePicker.swift in Sources */,
 				265531F8299E7E2C001EB3F5 /* Constants.swift in Sources */,
 				26EC7C21292CEE4D00905CD0 /* mca_ios_sdkApp.swift in Sources */,
+				26678A0029ACEA3E00796B05 /* FileUpload.swift in Sources */,
 				26DBC5512982A2B60076605C /* ProductForms.swift in Sources */,
 				26DBC54F29817FBD0076605C /* ProductInfoScreen.swift in Sources */,
 				26F455E329A29EE500F011A5 /* SelectResponse.swift in Sources */,
+				26678A0A29AE19C600796B05 /* UploadResponse.swift in Sources */,
 				2625166C2983D01400FD5114 /* PageView.swift in Sources */,
 				26E9049E29A753D0009B9FE8 /* CalenderSheet.swift in Sources */,
 			);
@@ -801,6 +821,14 @@
 				minimumVersion = 9.0.0;
 			};
 		};
+		26678A0429AE0B4600796B05 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		266FBE00298B09D800566209 /* XCRemoteSwiftPackageReference "FilePicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/markrenaud/FilePicker";
@@ -831,6 +859,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 265531F9299F58EE001EB3F5 /* XCRemoteSwiftPackageReference "pusher-websocket-swift" */;
 			productName = PusherSwift;
+		};
+		26678A0529AE0B4700796B05 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 26678A0429AE0B4600796B05 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		266FBE01298B09D800566209 /* FilePicker */ = {
 			isa = XCSwiftPackageProductDependency;

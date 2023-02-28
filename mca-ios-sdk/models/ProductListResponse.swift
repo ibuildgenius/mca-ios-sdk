@@ -307,3 +307,17 @@ class JSONNull: Decodable, Hashable {
     }
 }
 
+ extension [FormFieldElement] {
+    func piorityForms() -> [FormFieldElement] {
+        return self.sorted{ $0.position < $1.position }
+    }
+    
+    func showFirstFields() -> [FormFieldElement] {
+        return piorityForms().filter{ $0.showFirst }
+    }
+    
+    func afterPaymentFields() -> [FormFieldElement] {
+        return piorityForms().filter{ !$0.showFirst }
+    }
+    
+}
