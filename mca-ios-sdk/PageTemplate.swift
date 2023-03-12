@@ -11,24 +11,31 @@ struct PageTemplate: View {
     
     
     var body: some View {
-        VStack {
-            HStack {
-                Image(systemName: "chevron.backward").onTapGesture {
-                    onBackPressed()
-                }.foregroundColor(colorPrimary)
-                Text("").frame(maxWidth: .infinity)
-            }.padding(12)
-            
-            Image("logo").resizable().frame(width: 135, height: 32)
-            
+        ZStack {
+            ZStack {
+                Image("bg").resizable().frame(width: 50, height: 50, alignment: Alignment.topLeading)
+                Image("bg").resizable().frame(width: 50, height: 50, alignment: Alignment.bottomTrailing)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
             VStack {
-                mContent()
-            }.frame(maxHeight: .infinity)
-            
-            
-            Image("powered_by").resizable().frame(width: 130, height: 20)
-            
+                HStack {
+                    Image(systemName: "chevron.backward").onTapGesture {
+                        onBackPressed()
+                    }.foregroundColor(colorPrimary)
+                    Text("").frame(maxWidth: .infinity)
+                }.padding(12)
+                
+                Image("logo").resizable().frame(width: 135, height: 32)
+                
+                VStack {
+                    mContent()
+                }.frame(maxHeight: .infinity)
+                
+                
+                Image("powered_by").resizable().frame(width: 130, height: 20)
+                
+            }
         }
+        
     }
 }
 

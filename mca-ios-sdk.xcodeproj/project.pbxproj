@@ -24,6 +24,7 @@
 		2630C7CE29A4CDFD00B6E9C1 /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630C7CD29A4CDFD00B6E9C1 /* LottieView.swift */; };
 		2630C7D029A4D11300B6E9C1 /* TransactionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */; };
 		2630C7D329A685F200B6E9C1 /* SwiftUI_NotificationBanner in Frameworks */ = {isa = PBXBuildFile; productRef = 2630C7D229A685F200B6E9C1 /* SwiftUI_NotificationBanner */; };
+		263DDA3329B7634E00B6E318 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 263DDA3229B7634E00B6E318 /* Helpers.swift */; };
 		265531F6299E4D25001EB3F5 /* AnyCodable in Frameworks */ = {isa = PBXBuildFile; productRef = 265531F5299E4D25001EB3F5 /* AnyCodable */; };
 		265531F8299E7E2C001EB3F5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 265531F7299E7E2C001EB3F5 /* Constants.swift */; };
 		265531FB299F58EE001EB3F5 /* PusherSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 265531FA299F58EE001EB3F5 /* PusherSwift */; };
@@ -62,6 +63,7 @@
 		26F455DF29A1300D00F011A5 /* PaymentMethodCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F455DE29A1300D00F011A5 /* PaymentMethodCard.swift */; };
 		26F455E129A1773300F011A5 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F455E029A1773300F011A5 /* Bank.swift */; };
 		26F455E329A29EE500F011A5 /* SelectResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F455E229A29EE500F011A5 /* SelectResponse.swift */; };
+		26F4D36329AFEDD300879988 /* ProgressViewStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26F4D36229AFEDD300879988 /* ProgressViewStyle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,7 @@
 		2630C7CB29A4CD3D00B6E9C1 /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		2630C7CD29A4CDFD00B6E9C1 /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		2630C7CF29A4D11300B6E9C1 /* TransactionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionResponse.swift; sourceTree = "<group>"; };
+		263DDA3229B7634E00B6E318 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		265531F7299E7E2C001EB3F5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		265531FC299F591B001EB3F5 /* PusherClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PusherClient.swift; sourceTree = "<group>"; };
 		266789FB29AC8F2F00796B05 /* LoadingOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingOverlay.swift; sourceTree = "<group>"; };
@@ -135,6 +138,7 @@
 		26F455DE29A1300D00F011A5 /* PaymentMethodCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentMethodCard.swift; sourceTree = "<group>"; };
 		26F455E029A1773300F011A5 /* Bank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
 		26F455E229A29EE500F011A5 /* SelectResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectResponse.swift; sourceTree = "<group>"; };
+		26F4D36229AFEDD300879988 /* ProgressViewStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressViewStyle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,7 @@
 		26EC7C14292CEE4D00905CD0 = {
 			isa = PBXGroup;
 			children = (
+				26F4D36229AFEDD300879988 /* ProgressViewStyle.swift */,
 				26678A0929AE19C600796B05 /* UploadResponse.swift */,
 				266789FF29ACEA3E00796B05 /* FileUpload.swift */,
 				266789FB29AC8F2F00796B05 /* LoadingOverlay.swift */,
@@ -190,6 +195,7 @@
 				26F455E229A29EE500F011A5 /* SelectResponse.swift */,
 				26F455DE29A1300D00F011A5 /* PaymentMethodCard.swift */,
 				26E9049729A75329009B9FE8 /* DateTextField.swift */,
+				263DDA3229B7634E00B6E318 /* Helpers.swift */,
 				26E9049D29A753D0009B9FE8 /* CalenderSheet.swift */,
 				26E9049F29A757CE009B9FE8 /* DateField.swift */,
 				26E9049B29A75381009B9FE8 /* Globals.swift */,
@@ -461,6 +467,8 @@
 				26678A0029ACEA3E00796B05 /* FileUpload.swift in Sources */,
 				26DBC5512982A2B60076605C /* ProductForms.swift in Sources */,
 				26DBC54F29817FBD0076605C /* ProductInfoScreen.swift in Sources */,
+				26F4D36329AFEDD300879988 /* ProgressViewStyle.swift in Sources */,
+				263DDA3329B7634E00B6E318 /* Helpers.swift in Sources */,
 				26F455E329A29EE500F011A5 /* SelectResponse.swift in Sources */,
 				26678A0A29AE19C600796B05 /* UploadResponse.swift in Sources */,
 				2625166C2983D01400FD5114 /* PageView.swift in Sources */,

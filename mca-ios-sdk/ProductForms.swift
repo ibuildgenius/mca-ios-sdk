@@ -37,6 +37,7 @@ struct ProductForms: View {
             let res = await networkService.getSelectFieldOptions(url: form.dataURL!)
             
             if(res != nil && res?.responseCode == 1) {
+                
                 selectItems[form.name] = res?.data
                 
                 print(" \(selectItems) ")
@@ -112,7 +113,8 @@ struct ProductForms: View {
                             if(currentFormSetIndex > 0) {
                                 currentFormSetIndex -= 1
                             }else {
-                                presentationMode.wrappedValue.dismiss()
+                                if (transactionResponse == nil) {
+                                    presentationMode.wrappedValue.dismiss() }
                             }
                             
                         }, mContent: {
@@ -133,13 +135,14 @@ struct ProductForms: View {
                                     
                                     
                                     VStack {
-                                        HStack {
+                                        
+                                        HStack(alignment: .center) {
                                             Image(systemName: "info.circle.fill").resizable().frame(width: 15, height: 15).foregroundColor(colorPrimary)
                                             
                                             Text("Enter details as it appears on legal documents")
                                                 .font(metropolisRegular13)
                                                 .padding(.leading, 5)
-                                        }.padding(0)
+                                        }.padding(9).frame(alignment: .leading).background(colorPrimaryTrans)
                                         
                                         HStack {
                                             VStack{}.frame(maxWidth: .infinity)
@@ -195,10 +198,15 @@ struct ProductForms: View {
                                                         
                                                         if(form.formField.name!.lowercased().contains("select")) {
                                                             if(selectItems[form.name] != nil) {
-                                                                
+                                                  
                                                                 Menu(content: {
                                                                     ForEach(selectItems[form.name]!, id: \.self) {
                                                                         item in
+                                                                        
+                                                                        
+                                                            
+                                                                        
+                                                                
                                                                         Button("\(item.description)") {
                                                                             fields[form.name] = item.value
                                                                         }

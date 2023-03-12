@@ -12,14 +12,18 @@ struct FileUpload: View {
     
     @State private var url: URL? = nil
     
+    var progressInterval: ClosedRange<Date> {
+           let start = Date()
+           let end = start.addingTimeInterval(60 * 10)
+           return start...end
+       }
+    
     func upload() async {
         
         let result = await networkService.uploadFile(file:url!)
         if(result != nil) {
             print("upload response is \(result?.responseText ?? "nonexist")")
         }
-        
-            
     }
     
     var body: some View {

@@ -42,9 +42,16 @@ struct PaymentDetailsScreen: View {
     
     @State private var selectedBank: Bank? = nil
     
+    @State private var isVerifying = false
+    
+    @State private var buttonDisabled = false
+    
     @State private var responseText = ""
     @State private var showAlert = false
     @State private var transactionRes: TransactionResponse? = nil
+    @State var timeRemaining = 60 * 10
+    
+    var timer = Timer.publish(every: 30, on: .main, in: .common).autoconnect()
     
     func format(payload: [String: Any]) -> [String: Any] {
         let defaults = UserDefaults.standard
@@ -115,6 +122,7 @@ struct PaymentDetailsScreen: View {
     
     private func verifyTransaction() async {
         
+        isVerifying = true
         let ref = ( bankDetails["reference"] as! String)
         
         let response = await networkService.verifyTransaction(reference: ref)
@@ -124,15 +132,11 @@ struct PaymentDetailsScreen: View {
             display = Display.paymentSuccess
             transactionRes = response
             buttonText = "Continue"
+            buttonDisabled = false
+          
         }
+        isVerifying = false
     }
-    
-//    private func retryTransaction() async {
-//        let timer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: true) { timer in
-//
-//           shouldRetry = true
-//        }
-//    }
     
     var body: some View {
         
@@ -142,7 +146,7 @@ struct PaymentDetailsScreen: View {
         }
         else {
             ZStack {
-                PageTemplate(onBackPressed: onBackPressed, mContent: {
+                PageTemplate(onBackPressed: { if(display == Display.transactionType) { onBackPressed() }} , mContent: {
                     
                     print("\n\nfields is \(fields)\n\n")
                     
@@ -151,13 +155,33 @@ struct PaymentDetailsScreen: View {
                             
                             VStack(alignment: .leading) {
                                 
-                                if(display != Display.paymentSuccess) {
+                                if(display == Display.bankDetails) {
                                     VStack(alignment: .trailing) {
                                         Text((fields["email"] as? String) ?? "").font(metropolisRegular).foregroundColor(Color.gray)
                                         HStack{
                                             Text("Pay").font(metropolisRegular).foregroundColor(Color.gray);
                                             
-                                            Text("N\(price ?? product.price)")
+                                            Text("N\( formatNumbers(number: Double(price ?? product.price)! ) ) ")
+                                            
+                                        }
+                                        .padding(.vertical, 0.2).font(metropolisBold14)
+                                        .foregroundColor(colorPrimary)
+                                        
+                                    }.frame(maxWidth: .infinity, alignment: .trailing)
+                                        .padding(12)
+                                        .background(colorPrimaryTrans)
+                                        .padding(.vertical, 15)
+                                }
+                                
+                                
+                                
+                                
+                                if(display != Display.bankDetails && display != Display.paymentSuccess) {
+                                    VStack(alignment: .trailing) {
+                                        Text(product.productDetailPrefix.capitalized).font(metropolisRegular).foregroundColor(Color.gray)
+                                        HStack{
+                                           
+                                            Text(product.name)
                                             
                                         }
                                         .padding(.vertical, 0.2).font(metropolisBold14)
@@ -253,6 +277,31 @@ struct PaymentDetailsScreen: View {
                             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             
                         
+                            
+                            if(display == Display.bankDetails) {
+                                
+                                     VStack {
+
+                                         ProgressView("Transaction would expire in \(timeRemaining / 60) minute(s)", value: Double(timeRemaining) , total:  60 * 10).font(metropolisRegular13).progressViewStyle(WithBackgroundProgressViewStyle())
+                                     }.onReceive(timer) { value in
+                                         if (timeRemaining > 0) {
+                                             timeRemaining -= 30
+                                             
+                                             if(!isVerifying) {
+                                                 Task {
+                                                    await verifyTransaction()
+                                                 }
+                                                 
+                                             }
+                                         } else {
+                                             timer.upstream.connect().cancel()
+                                         }
+                                             
+                                             
+                                     }.padding(.vertical, 12)
+
+                            }
+                            
                             Button(buttonText) {
                                 
     //                            Task {
@@ -262,8 +311,9 @@ struct PaymentDetailsScreen: View {
                                 if(display == Display.transactionType && !isTransfer) {
                                     display = Display.bankList
                                 }
-                                else if(display == Display.bankDetails) {
+                                else if(display == Display.bankDetails && !isVerifying && !buttonDisabled) {
                                     Task {
+                                        buttonDisabled = true
                                      await verifyTransaction()
                                     }
                                 }
@@ -280,8 +330,9 @@ struct PaymentDetailsScreen: View {
                             .padding(.horizontal, 12)
                                 .padding(.vertical, 10)
                                 .foregroundColor(.white)
-                                .background(colorPrimary)
+                                .background(buttonDisabled ? Color.gray.opacity(0.4): colorPrimary)
                                 .clipShape(Capsule())
+                                .disabled(buttonDisabled)
                             
                             
                         }.padding(.horizontal, 12)

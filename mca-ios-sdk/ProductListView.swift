@@ -102,9 +102,10 @@ struct ProductListView: View {
                                                  if(price < 1000.0) {
                                                      Text("\(product.price)%").font(metropolisMedium)
                                                  } else {
-                                                     Text("N\(product.price)").font(metropolisMedium)
+                                                     Text("N\(formatNumbers(number: price))").font(metropolisMedium)
                                                  }
-                                             }.background(NavigationLink("", destination:ProductInfoScreen(product: product)))
+                                             }.background(NavigationLink("", destination:ProductInfoScreen(product: product)
+                                                                         ))
                                              .listRowSeparator(.hidden)
                                          }
                              
