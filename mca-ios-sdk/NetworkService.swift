@@ -9,6 +9,8 @@ import AnyCodable
 import UIKit
 import Alamofire
 
+
+
 protocol NetworkServiceable {
     func getProducts() async  -> DataClass?
     func intiatePurchase(payload: [String: Any]) async -> [String: AnyDecodable]?
@@ -27,10 +29,14 @@ fileprivate extension URLRequest {
         print(self.allHTTPHeaderFields!)
         print("Body:")
         print(String(data: self.httpBody ?? Data(), encoding: .utf8)!)
+        
     }
 }
 
 class NetworkService: NetworkServiceable {
+    
+    private let decoder = JSONDecoder()
+    
     func completePurchase(payload: [String : Any]) async -> [String : AnyDecodable]? {
         let urlString = "\(baseURLString)/v1/sdk/complete-purchase"
         
@@ -66,8 +72,6 @@ class NetworkService: NetworkServiceable {
         }
         return nil
     }
-    
-    
     
     func uploadFile(file: URL) async -> UploadResponse? {
         
@@ -148,7 +152,6 @@ class NetworkService: NetworkServiceable {
         return nil
     }
     
-    
     func getSelectFieldOptions(url: String) async -> SelectResponse? {
         
         let urlString = "\(baseURLString)/v1\(url)"
@@ -183,11 +186,11 @@ class NetworkService: NetworkServiceable {
         return nil
     }
 
-    
     let baseURLString: String
     
     init(baseURLString: String) {
         self.baseURLString = baseURLString
+        //decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     
     
@@ -264,6 +267,7 @@ class NetworkService: NetworkServiceable {
     
     func getProducts() async -> DataClass? {
         
+        
         let urlString = "\(baseURLString)/v1/sdk/initialize"
         
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
@@ -281,13 +285,16 @@ class NetworkService: NetworkServiceable {
         
         
         do {
-            
             request.debug()
             
             let (data, _) = try await URLSession.shared.upload(for: request, from: jsonData)
             
-            if let decodedResponse = try? JSONDecoder().decode(ProductListResponse.self, from: data) {
+            
+            if let decodedResponse = try? decoder.decode(ProductListResponse.self, from: data) {
                 return decodedResponse.data
+            }else {
+                print("cannot parse response")
+                
             }
         } catch {
             print("Invalid data")

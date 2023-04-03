@@ -33,8 +33,8 @@ struct ProductForms: View {
     
     
     func getSelectField(form: FormFieldElement) async {
-        if(form.dataURL != nil ) {
-            let res = await networkService.getSelectFieldOptions(url: form.dataURL!)
+        if(form.data_url != nil ) {
+            let res = await networkService.getSelectFieldOptions(url: form.data_url!)
             
             if(res != nil && res?.responseCode == 1) {
                 
@@ -119,7 +119,7 @@ struct ProductForms: View {
                             
                         }, mContent: {
                             
-                            let formSet = transactionResponse == nil ? product.formFields.showFirstFields().chunked(into: 3) : product.formFields.afterPaymentFields().chunked(into: 3)
+                            let formSet = transactionResponse == nil ? product.form_fields.showFirstFields().chunked(into: 3) : product.form_fields.afterPaymentFields().chunked(into: 3)
                             
                             
                             return AnyView(VStack {
@@ -146,7 +146,7 @@ struct ProductForms: View {
                                         
                                         HStack {
                                             VStack{}.frame(maxWidth: .infinity)
-                                            Text("Underwritten by: \(product.productDetailPrefix.capitalized)").font(metropolisRegularSM)
+                                            Text("Underwritten by: \(product.prefix.capitalized)").font(metropolisRegularSM)
                                         }
                                         
                                         
@@ -156,7 +156,7 @@ struct ProductForms: View {
                                                 
                                                 VStack(alignment: .leading) {
                                                     
-                                                    if(form.inputType == InputType.date) {
+                                                    if(form.input_type == InputType.date) {
                                                         
                                                         Text(form.label).font(metropolisRegularSM)
                                                         
@@ -177,7 +177,7 @@ struct ProductForms: View {
                                                         
                                                         
                                                         
-                                                    } else if(form.inputType == InputType.file) {
+                                                    } else if(form.input_type == InputType.file) {
                                                         FilePicker(types: [.data], allowMultiple: false) { urls in
                                                             print("selected \(urls[0]) files")
                                                             if (urls[0] != nil) {
@@ -186,7 +186,7 @@ struct ProductForms: View {
                                                         } label: {
                                                             CustomTextField(
                                                                 label: form.label,
-                                                                inputType: resolveKeyboardType(inputType: form.inputType),
+                                                                inputType: resolveKeyboardType(inputType: form.input_type),
                                                                 hint: form.description,
                                                                 disabled: true,
                                                                 text: name
@@ -196,7 +196,7 @@ struct ProductForms: View {
                                                     
                                                     else {
                                                         
-                                                        if(form.formField.name!.lowercased().contains("select")) {
+                                                        if(form.form_field.name!.lowercased().contains("select")) {
                                                             if(selectItems[form.name] != nil) {
                                                   
                                                                 Menu(content: {
@@ -214,7 +214,7 @@ struct ProductForms: View {
                                                                 }, label: {
                                                                     CustomTextField(
                                                                         label: "\(form.label)",
-                                                                        inputType: resolveKeyboardType(inputType: form.inputType),
+                                                                        inputType: resolveKeyboardType(inputType: form.input_type),
                                                                         hint: "\(fields[form.name] ?? form.description)",
                                                                         disabled: true,
                                                                         text: "\(fields[form.name] ?? "")",
@@ -229,7 +229,7 @@ struct ProductForms: View {
                                                             
                                                             CustomTextField(
                                                                 label: form.label,
-                                                                inputType: resolveKeyboardType(inputType: form.inputType),
+                                                                inputType: resolveKeyboardType(inputType: form.input_type),
                                                                 hint: form.description,
                                                                 disabled: false,
                                                                 text: "\(fields[form.name] as? String ?? "") ",
@@ -238,14 +238,14 @@ struct ProductForms: View {
                                                                 },
                                                                 onChange: {value in
                                                                     
-                                                                    if(form.dataType == DataType.number) {
+                                                                    if(form.data_type == DataType.number) {
                                                                         fields[form.name] = Int(value.trimmingCharacters(in: .whitespacesAndNewlines))
                                                                     } else {
                                                                         fields[form.name] = value.trimmingCharacters(in: .whitespacesAndNewlines)
                                                                     }
                                                                     
                                                                     print(value.description)
-                                                                    print("form field value \(form.dataType) \(fields[form.name] ?? "")")
+                                                                    print("form field value \(form.data_type) \(fields[form.name] ?? "")")
                                                                 }
                                                             )
                                                         }
@@ -327,7 +327,7 @@ extension Array {
 }
 
 
-func resolveKeyboardType(inputType: InputType) -> UIKeyboardType {
+func resolveKeyboardType(inputType: String) -> UIKeyboardType {
     switch (inputType) {
     case InputType.email: return UIKeyboardType.emailAddress
     case InputType.number: return UIKeyboardType.numberPad

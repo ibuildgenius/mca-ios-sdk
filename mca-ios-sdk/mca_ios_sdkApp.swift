@@ -10,7 +10,7 @@ import SwiftUI_NotificationBanner
 struct mca_ios_sdkApp: App {
     
     
-    @StateObject var products = Sample()
+   
     @StateObject var notificationHandler = DYNotificationHandler()
     
    

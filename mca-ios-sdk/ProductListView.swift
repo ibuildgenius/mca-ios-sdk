@@ -22,9 +22,9 @@ struct ProductListView: View {
     func getCompanies() ->  [String] {
         var companies = ["all"]
         
-        for p in  productList.filter({ !$0.formFields.isEmpty}) {
+        for p in  productList.filter({ !$0.form_fields.isEmpty}) {
         
-            let d = p.productDetailPrefix
+            let d = p.prefix
             
             if !companies.contains(where: {$0 == d}) {
                 companies.append(d)
@@ -34,17 +34,39 @@ struct ProductListView: View {
         return companies
     }
     
+    func fetchPolicies() async {
+        isLoading = true
+        let response = await networkService.getProducts()
+        
+  
+        
+        productList = response?.productDetails ?? []
+        
+        let defaults = UserDefaults.standard
+        
+        defaults.set(response?.businessDetails?.instance_id, forKey: DefaultsKeys.instanceId)
+        
+        companies = getCompanies()
+        isLoading = false
+       
+    }
+    
     @State var selectedIndex: Int = 0
 
     var body: some View {
+
         
         let filteredList = productList.filter{
             p in
             
-             if(companies[selectedIndex] != "all") {
-            return p.productDetailPrefix == companies[selectedIndex]
-            } else { return true}
-        }.filter{ !$0.formFields.isEmpty }
+            if(!companies.isEmpty) {
+                if(companies[selectedIndex] != "all") {
+               return p.prefix == companies[selectedIndex]
+               }
+            }
+            
+            return true
+        }.filter{ !$0.form_fields.isEmpty }
      
         VStack {
             Text("Products Page").font(metropolisBold).padding(.vertical, 12)
@@ -55,7 +77,20 @@ struct ProductListView: View {
                     ProgressView()
                 }.frame(maxHeight: .infinity, alignment: .center)
                
-            } else {
+            } else if(!isLoading && filteredList.isEmpty) {
+                VStack(alignment: .center) {
+                    Text("Unable to fetch Policies").padding(12).font(metropolisRegular)
+                    
+                    Button("Retry") {
+                        Task {
+                            await fetchPolicies()
+                        }
+                    }
+    
+                }.frame(maxHeight: .infinity, alignment: .center)
+            }
+            
+            else {
                 
                 VStack {
                            ScrollView(.horizontal, showsIndicators: false) {
@@ -87,7 +122,7 @@ struct ProductListView: View {
                                                          .multilineTextAlignment(.leading)
                                                          
                                                                                       
-                                                     Text(product.productDetailPrefix.capitalized).font(metropolisRegularSM).foregroundColor(.gray)
+                                                     Text(product.prefix.capitalized).font(metropolisRegularSM).foregroundColor(.gray)
                                                      
                                                  }.frame(
                                                      minWidth: 0,
@@ -118,16 +153,7 @@ struct ProductListView: View {
             
         }.task {
             if(productList.isEmpty) {
-                isLoading = true
-                var response = await networkService.getProducts()
-                productList = response?.productDetails ?? []
-                
-                let defaults = UserDefaults.standard
-                
-                defaults.set(response?.businessDetails?.instanceID, forKey: DefaultsKeys.instanceId)
-                
-                companies = getCompanies()
-                isLoading = false
+               await fetchPolicies()
             }
         }.navigationBarHidden(true)
             .background(.white)

@@ -178,7 +178,7 @@ struct PaymentDetailsScreen: View {
                                 
                                 if(display != Display.bankDetails && display != Display.paymentSuccess) {
                                     VStack(alignment: .trailing) {
-                                        Text(product.productDetailPrefix.capitalized).font(metropolisRegular).foregroundColor(Color.gray)
+                                        Text(product.prefix.capitalized).font(metropolisRegular).foregroundColor(Color.gray)
                                         HStack{
                                            
                                             Text(product.name)

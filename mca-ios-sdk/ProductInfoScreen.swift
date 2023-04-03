@@ -59,11 +59,11 @@ struct ProductInfoScreen: View {
                                     
                                     switch(index) {
                                     case 0:
-                                        PageView(image: "how_it_works", content: product.howItWorks)
+                                        PageView(image: "how_it_works", content: product.how_it_works)
                                     case 1:
-                                        PageView(image: "benefits", content: "\(product.keyBenefits?.value ?? "")")
+                                        PageView(image: "benefits", content:  "\(product.key_benefits?.value ?? "")")
                                     case 2:
-                                        PageView(image: "how_to_claim", content: product.howToClaim)
+                                        PageView(image: "how_to_claim", content: product.how_to_claim)
                                     default:
                                         PageView(image: "how_to_claim", content: "Opp! you're in limbo")
                                     }
@@ -77,7 +77,7 @@ struct ProductInfoScreen: View {
                         
                         
                         
-                        if(product.formFields.isEmpty) {
+                        if(product.form_fields.isEmpty) {
                             
                             NavigationLink(destination: PaymentDetailsScreen(onBackPressed: {presentationMode.wrappedValue.dismiss()}, product: product, fields: [:], files: [:])) {
                                 

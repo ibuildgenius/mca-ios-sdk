@@ -31,7 +31,7 @@ class ProductListViewModel : ObservableObject {
 
         private let networkService: NetworkServiceable
 
-        private var productData: ProductListResponse? = ProductListResponse(responseCode: 0, responseText: "sample response text", data: DataClass(businessDetails: nil, productDetails:   []))
+    private var productData: ProductListResponse? = ProductListResponse(responseCode: 0, responseText: "sample response text", data: DataClass(businessDetails: nil, productDetails:   []))
     
     
     init(networkService: NetworkServiceable) {
