@@ -38,7 +38,23 @@ struct ProductForms: View {
             
             if(res != nil && res?.responseCode == 1) {
                 
-                selectItems[form.name] = res?.data
+                var options: [AnyDecodable] = []
+                
+                res?.data.forEach {item in
+                    
+                    if(item.value is [String: Any]) {
+                        
+                        let x = (item.value as! [String: Any])["name"]
+                        
+                        options.append(AnyDecodable(x))
+                    } else {
+                        options.append(AnyDecodable(item.value))
+                      
+                    }
+                    
+                }
+                
+                selectItems[form.name] = options
                 
                 print(" \(selectItems) ")
             }
@@ -57,6 +73,8 @@ struct ProductForms: View {
                 }
             }
         }
+        
+        updatedFields["is_full_year"] = true
         return updatedFields
     }
     
@@ -187,7 +205,7 @@ struct ProductForms: View {
                                                             CustomTextField(
                                                                 label: form.label,
                                                                 inputType: resolveKeyboardType(inputType: form.input_type),
-                                                                hint: form.description,
+                                                                hint: files[form.name]?.description ?? form.description,
                                                                 disabled: true,
                                                                 text: name
                                                             )
@@ -202,10 +220,7 @@ struct ProductForms: View {
                                                                 Menu(content: {
                                                                     ForEach(selectItems[form.name]!, id: \.self) {
                                                                         item in
-                                                                        
-                                                                        
-                                                            
-                                                                        
+                                                
                                                                 
                                                                         Button("\(item.description)") {
                                                                             fields[form.name] = item.value
