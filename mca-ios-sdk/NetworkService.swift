@@ -38,7 +38,9 @@ class NetworkService: NetworkServiceable {
     private let decoder = JSONDecoder()
     
     func completePurchase(payload: [String : Any]) async -> [String : AnyDecodable]? {
-        
+        if(Credential.APIKEY.isEmpty) {
+            return nil
+        }
         
         let urlString = "\(baseURLString)/v1/sdk/complete-purchase"
         
@@ -50,7 +52,7 @@ class NetworkService: NetworkServiceable {
         
         request.httpMethod = "post"
         request.httpBody = jsonData
-        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(Credential.APIKEY)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -77,6 +79,10 @@ class NetworkService: NetworkServiceable {
     
     func uploadFile(file: URL) async -> UploadResponse? {
         
+        if(Credential.APIKEY.isEmpty) {
+            return nil
+        }
+        
         let dispatch = DispatchSemaphore(value: 0)
         
         //DOCUMENT TYPE: document, video, image, blob
@@ -90,7 +96,7 @@ class NetworkService: NetworkServiceable {
             
         let headers: HTTPHeaders = [
             "Content-Type": "multipart/form-data",
-            "Authorization": "Bearer \(APIKEY)",
+            "Authorization": "Bearer \(Credential.APIKEY)",
             "Accept": "application/json"
         ]
         
@@ -119,6 +125,10 @@ class NetworkService: NetworkServiceable {
     
     
     func verifyTransaction(reference: String) async -> TransactionResponse? {
+        if(Credential.APIKEY.isEmpty) {
+            return nil
+        }
+        
         let urlString = "\(baseURLString)/v1/sdk/verify-transaction"
         
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
@@ -128,7 +138,7 @@ class NetworkService: NetworkServiceable {
         let bodyJson = try! JSONSerialization.data(withJSONObject: ["transaction_reference": reference])
         
         request.httpMethod = "post"
-        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(Credential.APIKEY)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = bodyJson
         do {
@@ -156,6 +166,10 @@ class NetworkService: NetworkServiceable {
     
     func getSelectFieldOptions(url: String) async -> SelectResponse? {
         
+        if(Credential.APIKEY.isEmpty) {
+            return nil
+        }
+        
         let urlString = "\(baseURLString)/v1\(url)"
         
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
@@ -164,7 +178,7 @@ class NetworkService: NetworkServiceable {
         
         
         request.httpMethod = "get"
-        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(Credential.APIKEY)", forHTTPHeaderField: "Authorization")
         do {
             
             request.debug()
@@ -198,7 +212,7 @@ class NetworkService: NetworkServiceable {
     
     
     func getBanks() async -> BankResponse? {
-        if(Credential.APIKEY == nil) {
+        if(Credential.APIKEY.isEmpty) {
             return nil
         }
         let urlString = "\(baseURLString)/v1/bank/list-banks"
@@ -234,7 +248,7 @@ class NetworkService: NetworkServiceable {
     
     
     func intiatePurchase(payload: [String: Any]) async -> [String : AnyDecodable]? {
-        if(Credential.APIKEY == nil) {
+        if(Credential.APIKEY.isEmpty) {
             return nil
         }
         let urlString = "\(baseURLString)/v1/sdk/initiate-purchase"
@@ -274,7 +288,7 @@ class NetworkService: NetworkServiceable {
     
     
     func getProducts() async -> DataClass? {
-        if(Credential.APIKEY == nil) {
+        if(Credential.APIKEY.isEmpty) {
             return nil
         }
         
@@ -290,7 +304,7 @@ class NetworkService: NetworkServiceable {
         
         request.httpMethod = "post"
         request.httpBody = jsonData
-        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(Credential.APIKEY)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         
@@ -304,7 +318,7 @@ class NetworkService: NetworkServiceable {
                 return decodedResponse.data
             }else {
                 print("cannot parse response")
-                
+
             }
         } catch {
             print("Invalid data")
