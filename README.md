@@ -22,9 +22,16 @@ dependencies: [
 ## Usage
 Add the swift view to your app
 
+### first add the import statement
+
+```swift
+import MyCoverAISDK
+
+```
+
+### then call the SwiftUI view with your API key
 ```swift
 
 MyCoverAISDK(apiKey: "<YOUR-API-KEY>")
-
 
 ```
