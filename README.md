@@ -35,3 +35,6 @@ import MyCoverAISDK
 MyCoverAISDK(apiKey: "<YOUR-API-KEY>")
 
 ```
+
+
+your can also refer to [this doc]("https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app") from the apple team. 
