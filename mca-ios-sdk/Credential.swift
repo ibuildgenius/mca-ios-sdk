@@ -8,6 +8,8 @@
 import Foundation
 
 
+struct Credential {
+    static var APIKEY: String? = nil
+}
 
-
-let APIKEY = "MCAPUBK_TEST|48c01008-5f01-4705-b63f-e71ef5fc974f"
+//let APIKEY = "MCAPUBK_TEST|48c01008-5f01-4705-b63f-e71ef5fc974f"

@@ -40,6 +40,7 @@
 		266FBE05298B120500566209 /* Metropolis-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 266FBDFB298AB99100566209 /* Metropolis-Medium.otf */; };
 		266FBE06298B120F00566209 /* Metropolis-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 266FBDFD298AB99100566209 /* Metropolis-Regular.otf */; };
 		266FBE07298B121200566209 /* Metropolis-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 266FBDFC298AB99100566209 /* Metropolis-Bold.otf */; };
+		26BC7FDE29E2C3D40028DD8C /* MyCoverAI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BC7FDD29E2C3D40028DD8C /* MyCoverAI.swift */; };
 		26DBC543297FD0930076605C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC542297FD0930076605C /* NetworkService.swift */; };
 		26DBC545297FD55E0076605C /* ProductListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC544297FD55E0076605C /* ProductListResponse.swift */; };
 		26DBC549297FDAF10076605C /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26DBC548297FDAF10076605C /* LoadingState.swift */; };
@@ -112,6 +113,7 @@
 		266FBDFD298AB99100566209 /* Metropolis-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Metropolis-Regular.otf"; sourceTree = "<group>"; };
 		266FBDFE298ABBC100566209 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		266FBE03298B106800566209 /* Solitreo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Solitreo-Regular.ttf"; sourceTree = "<group>"; };
+		26BC7FDD29E2C3D40028DD8C /* MyCoverAI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoverAI.swift; sourceTree = "<group>"; };
 		26DBC542297FD0930076605C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		26DBC544297FD55E0076605C /* ProductListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProductListResponse.swift; path = models/ProductListResponse.swift; sourceTree = "<group>"; };
 		26DBC548297FDAF10076605C /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoadingState.swift; path = models/LoadingState.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				26DBC548297FDAF10076605C /* LoadingState.swift */,
 				26DBC54A297FDC610076605C /* ProductListViewModel.swift */,
 				26DBC544297FD55E0076605C /* ProductListResponse.swift */,
+				26BC7FDD29E2C3D40028DD8C /* MyCoverAI.swift */,
 			);
 			path = "mca-ios-sdk";
 			sourceTree = "<group>";
@@ -461,6 +464,7 @@
 				2625167329840DFA00FD5114 /* HtmlView.swift in Sources */,
 				2625166E2983D11100FD5114 /* TabLayoutView.swift in Sources */,
 				26DBC543297FD0930076605C /* NetworkService.swift in Sources */,
+				26BC7FDE29E2C3D40028DD8C /* MyCoverAI.swift in Sources */,
 				26E904A429A7C021009B9FE8 /* ImagePicker.swift in Sources */,
 				265531F8299E7E2C001EB3F5 /* Constants.swift in Sources */,
 				26EC7C21292CEE4D00905CD0 /* mca_ios_sdkApp.swift in Sources */,

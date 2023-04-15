@@ -155,7 +155,7 @@ struct ProductListView: View {
             if(productList.isEmpty) {
                await fetchPolicies()
             }
-        }.navigationBarHidden(true)
+        }.navigationBarHidden(true).navigationTitle("")
             .background(.white)
     }
 }

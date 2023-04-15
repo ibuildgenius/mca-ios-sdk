@@ -38,6 +38,8 @@ class NetworkService: NetworkServiceable {
     private let decoder = JSONDecoder()
     
     func completePurchase(payload: [String : Any]) async -> [String : AnyDecodable]? {
+        
+        
         let urlString = "\(baseURLString)/v1/sdk/complete-purchase"
         
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
@@ -196,6 +198,9 @@ class NetworkService: NetworkServiceable {
     
     
     func getBanks() async -> BankResponse? {
+        if(Credential.APIKEY == nil) {
+            return nil
+        }
         let urlString = "\(baseURLString)/v1/bank/list-banks"
         
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
@@ -204,7 +209,7 @@ class NetworkService: NetworkServiceable {
         
         
         request.httpMethod = "get"
-        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(Credential.APIKEY)", forHTTPHeaderField: "Authorization")
         do {
             
             request.debug()
@@ -229,6 +234,9 @@ class NetworkService: NetworkServiceable {
     
     
     func intiatePurchase(payload: [String: Any]) async -> [String : AnyDecodable]? {
+        if(Credential.APIKEY == nil) {
+            return nil
+        }
         let urlString = "\(baseURLString)/v1/sdk/initiate-purchase"
         
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
@@ -239,7 +247,7 @@ class NetworkService: NetworkServiceable {
         
         request.httpMethod = "post"
         request.httpBody = jsonData
-        request.setValue("Bearer \(APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("Bearer \(Credential.APIKEY)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -266,7 +274,9 @@ class NetworkService: NetworkServiceable {
     
     
     func getProducts() async -> DataClass? {
-        
+        if(Credential.APIKEY == nil) {
+            return nil
+        }
         
         let urlString = "\(baseURLString)/v1/sdk/initialize"
         
