@@ -4,35 +4,27 @@
       <img title="http://MyCover.ai" height="200" src="https://www.mycover.ai/images/logos/mycover.svg" width="200px"/>
 </div>
 
-An android SDK built natively with kotlin and Jetpack Compose, for buying insurance policies, powered by the [mycover.ai](https://www.mycover.ai/) platform.
+An iOS library built natively with Swift and SwiftUI, for buying insurance policies, powered by the [mycover.ai](https://www.mycover.ai/) platform.
 
-## Add the dependencies to your gradle files
+# Installation
 
-### add the jitpack maven repo in your settings.gradle file
-<div align="center">
-      <img title="step one" src="1.png" />
-</div>
+## Using Swift Package manager
 
-### Or if you're using an older gradle version(root level build.gradle)
-<div align="center">
-      <img title="step two" src="2.png" />
-</div>
+### in your swift package file add the mycover.ai dependency
+```swift
 
-### in your module level build.gradle file, add the mycover.ai sdk dependency
-```gradle
-
-dependencies {
-    implementation 'com.github.ibuildgenius:mca-android-sdk:<latest-version>'
-}
+dependencies: [
+    .package(url: "https://github.com/ibuildgenius/mca-ios-sdk", .upToNextMajor(from: "1.0.0"))
+]
 
 ```
 
 ## Usage
-Initialise the sdk 
+Add the swift view to your app
 
-```kotlin
+```swift
 
-MyCoverAI.init(this, "<YOUR-API-TOKEN>")
+MyCoverAISDK(apiKey: "<YOUR-API-KEY>")
 
 
 ```
