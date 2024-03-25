@@ -37,6 +37,8 @@ struct ProductListView: View {
     func fetchPolicies() async {
         isLoading = true
         let response = await networkService.getProducts()
+        debugPrint(response)
+        print(response)
         
   
         
