@@ -317,9 +317,11 @@ class NetworkService: NetworkServiceable {
         do {
             request.debug()
             
-            let (data, _) = try await URLSession.shared.upload(for: request, from: jsonData)
+            let (data, test) = try await URLSession.shared.upload(for: request, from: jsonData)
             print("Result")
             print(data)
+            print("test")
+            print(test)
             
             
             if let decodedResponse = try? decoder.decode(ProductListResponse.self, from: data) {
