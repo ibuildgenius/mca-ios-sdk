@@ -11,13 +11,13 @@ struct ProductListResponse : Decodable{
     var responseCode: Int
     var responseText: String
     //TODO UNCOMMENT HERE
-    var data: DataClass?
+    var data: DataClass
 }
 
 // MARK: - DataClass
 struct DataClass : Decodable {
     var businessDetails: BusinessDetails?
-    var productDetails: [ProductDetail]?
+    var productDetails: [ProductDetail]
 }
 
 // MARK: - BusinessDetails
