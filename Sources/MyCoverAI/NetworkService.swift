@@ -291,22 +291,16 @@ class NetworkService: NetworkServiceable {
         if(Credential.APIKEY.isEmpty) {
             return nil
         }
-        print("Start")
-        print(Credential.APIKEY)
         
         let urlString = "\(baseURLString)/v1/sdk/initialize"
-        print(urlString)
         
         guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
-        print(url)
         
         var request = URLRequest(url: url)
-        print(request)
         
         let json = ["payment_option": "gateway", "action": "purchase"]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: json)
-        print(jsonData)
         
         request.httpMethod = "post"
         request.httpBody = jsonData
@@ -318,32 +312,9 @@ class NetworkService: NetworkServiceable {
             request.debug()
             
             let (data, _) = try await URLSession.shared.upload(for: request, from: jsonData)
-            print("Result")
-//            let dataString = String(data: data, encoding: .utf8)
-//            print(data)
-//            print(dataString ?? "Cannot Find")
-//            let decoder = JSONDecoder()
-//            print("test")
-//            print(test)
-            
-            //REMOVE BELOWW
-            
-//            do {
-//                let decodedResponse = try decoder.decode(ProductListResponse.self, from: data)
-//                // Uncomment the following line to return decoded data
-//                // return decodedResponse.data
-//
-//                print("response")
-////                print(decodedResponse)
-//            } catch {
-//                print("Error decoding response: \(error)")
-//            }
-//
-            //TO HERE
             
             if let decodedResponse = try? decoder.decode(ProductListResponse.self, from: data) {
                 print("response")
-                print(decodedResponse)
                 return decodedResponse.data
             }else {
                 print("cannot parse response")
