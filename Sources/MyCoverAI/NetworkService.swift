@@ -319,9 +319,14 @@ class NetworkService: NetworkServiceable {
             
             let (data, test) = try await URLSession.shared.upload(for: request, from: jsonData)
             print("Result")
-            let dataString = String(data: data, encoding: .utf8)
+            //let dataString = String(data: data, encoding: .utf8)
             print(data)
-            print(dataString)
+            //print(dataString)
+            let decoder = JSONDecoder()
+            let testResponse = try decoder.decode(TestResponse.self, from: data)
+    
+            // Now 'testResponse' contains the decoded data from the response
+            print(testResponse)
             print("test")
             print(test)
             
