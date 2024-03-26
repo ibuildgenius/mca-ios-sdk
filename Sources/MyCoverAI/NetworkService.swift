@@ -317,7 +317,7 @@ class NetworkService: NetworkServiceable {
         do {
             request.debug()
             
-            let (data, test) = try await URLSession.shared.upload(for: request, from: jsonData)
+            let (data, _) = try await URLSession.shared.upload(for: request, from: jsonData)
             print("Result")
 //            let dataString = String(data: data, encoding: .utf8)
 //            print(data)
@@ -328,31 +328,23 @@ class NetworkService: NetworkServiceable {
             
             //REMOVE BELOWW
             
-            do {
-                let decodedResponse = try decoder.decode(ProductListResponse.self, from: data)
-                // Uncomment the following line to return decoded data
-                // return decodedResponse.data
-
-                print("response")
-                print(decodedResponse)
-            } catch {
-                print("Error decoding response: \(error)")
-            }
-            
+//            do {
+//                let decodedResponse = try decoder.decode(ProductListResponse.self, from: data)
+//                // Uncomment the following line to return decoded data
+//                // return decodedResponse.data
+//
+//                print("response")
+////                print(decodedResponse)
+//            } catch {
+//                print("Error decoding response: \(error)")
+//            }
+//
             //TO HERE
-            if let dataString = String(data: data, encoding: .utf8) {
-                print("Data as String:")
-//                print(dataString)
-            } else {
-                print("Failed to convert data to string.")
-            }
             
             if let decodedResponse = try? decoder.decode(ProductListResponse.self, from: data) {
-// //TODO UNCOMMENT HERE
-//                return decodedResponse.data
-                
                 print("response")
                 print(decodedResponse)
+                return decodedResponse.data
             }else {
                 print("cannot parse response")
 
