@@ -33,7 +33,7 @@ struct BusinessDetails: Decodable {
 // MARK: - ProductDetail
 struct ProductDetail : Decodable{
     var id: String?
-    var name: String?
+    var name: String
     var key_benefits: AnyDecodable?
     var description: String?
     var prefix: String
@@ -42,7 +42,7 @@ struct ProductDetail : Decodable{
     var inspectable: Bool
     var certificateable: Bool
     var is_dynamic_pricing: Bool
-    var price: String?
+    var price: String
     var distributor_commission_percentage: String?
     var mca_commission_percentage: String?
     var cover_period: String?
