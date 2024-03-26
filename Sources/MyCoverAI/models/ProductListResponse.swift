@@ -59,7 +59,7 @@ struct FormFieldElement: Decodable, Identifiable {
     var id: String?
     var app_mode: String?
     var description: String?
-    var name: String?
+    var name: String
     var label: String?
     var position: Int
     var full_description: String?
