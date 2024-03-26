@@ -325,9 +325,24 @@ class NetworkService: NetworkServiceable {
 //            let decoder = JSONDecoder()
 //            print("test")
 //            print(test)
+            
+            //REMOVE BELOWW
+            
+            do {
+                let decodedResponse = try decoder.decode(ProductListResponse.self, from: data)
+                // Uncomment the following line to return decoded data
+                // return decodedResponse.data
+
+                print("response")
+                print(decodedResponse)
+            } catch {
+                print("Error decoding response: \(error)")
+            }
+            
+            //TO HERE
             if let dataString = String(data: data, encoding: .utf8) {
                 print("Data as String:")
-                print(dataString)
+//                print(dataString)
             } else {
                 print("Failed to convert data to string.")
             }
