@@ -75,30 +75,7 @@ struct FormFieldElement: Decodable, Identifiable {
     var min_max_constraint: String?
     var form_field_id: String?
     var product_id: String?
-    var form_field: FormFieldFormField?
-    
-    enum CodingKeys: String, CodingKey {
-            case id
-            case app_mode = "app_mode"
-            case description
-            case name
-            case label
-            case position
-            case full_description
-            case data_type
-            case input_type
-            case show_first
-            case required
-            case data_source
-            case data_url
-            case depends_on
-            case min
-            case max
-            case min_max_constraint
-            case form_field_id
-            case product_id
-            case form_field
-    }
+    var form_field: FormFieldFormField
 }
 
 
