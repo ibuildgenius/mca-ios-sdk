@@ -43,7 +43,7 @@ struct ProductDetail : Decodable{
     var certificateable: Bool
     var is_dynamic_pricing: Bool
     var price: String
-    var distributor_commission_percentage: String
+    var distributor_commission_percentage: String?
     var mca_commission_percentage: String
     var cover_period: String?
     var active: Bool
