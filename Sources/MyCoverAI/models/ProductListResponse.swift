@@ -32,50 +32,50 @@ struct BusinessDetails: Decodable {
 
 // MARK: - ProductDetail
 struct ProductDetail : Decodable{
-    var id: String
-    var name: String
+    var id: String?
+    var name: String?
     var key_benefits: AnyDecodable?
-    var description: String
+    var description: String?
     var prefix: String
     var renewable: Bool
     var claimable: Bool
     var inspectable: Bool
     var certificateable: Bool
     var is_dynamic_pricing: Bool
-    var price: String
+    var price: String?
     var distributor_commission_percentage: String?
     var mca_commission_percentage: String?
     var cover_period: String?
     var active: Bool
     var how_it_works: String?
     var how_to_claim: String?
-    var product_category_id: String
-    var provider_id: String
+    var product_category_id: String?
+    var provider_id: String?
     var form_fields: [FormFieldElement]
 }
 
 // MARK: - FormFieldElement
 struct FormFieldElement: Decodable, Identifiable {
-    var id: String
-    var app_mode: String
-    var description: String
-    var name: String
-    var label: String
+    var id: String?
+    var app_mode: String?
+    var description: String?
+    var name: String?
+    var label: String?
     var position: Int
-    var full_description: String
-    var data_type: String
-    var input_type: String
+    var full_description: String?
+    var data_type: String?
+    var input_type: String?
     var show_first: Bool
     var required: Bool
-    var data_source: String
+    var data_source: String?
     var data_url: String?
     var depends_on: String?
     var min: Int?
     var max: Int?
-    var min_max_constraint: String
-    var form_field_id: String
-    var product_id: String
-    var form_field: FormFieldFormField
+    var min_max_constraint: String?
+    var form_field_id: String?
+    var product_id: String?
+    var form_field: FormFieldFormField?
 }
 
 
