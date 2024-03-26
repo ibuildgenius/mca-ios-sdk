@@ -10,7 +10,8 @@ import AnyCodable
 struct ProductListResponse : Decodable{
     var responseCode: Int
     var responseText: String
-    var data: DataClass
+    //TODO UNCOMMENT HERE
+//    var data: DataClass
 }
 
 // MARK: - DataClass

@@ -319,20 +319,20 @@ class NetworkService: NetworkServiceable {
             
             let (data, test) = try await URLSession.shared.upload(for: request, from: jsonData)
             print("Result")
-            //let dataString = String(data: data, encoding: .utf8)
+            let dataString = String(data: data, encoding: .utf8)
             print(data)
-            //print(dataString)
+            print(dataString ?? "Cannot Find")
             let decoder = JSONDecoder()
-            let testResponse = try decoder.decode(TestResponse.self, from: data)
-    
-            // Now 'testResponse' contains the decoded data from the response
-            print(testResponse)
             print("test")
             print(test)
             
             
             if let decodedResponse = try? decoder.decode(ProductListResponse.self, from: data) {
-                return decodedResponse.data
+// //TODO UNCOMMENT HERE
+//                return decodedResponse.data
+                
+                print("response")
+                print(decodedResponse)
             }else {
                 print("cannot parse response")
 
