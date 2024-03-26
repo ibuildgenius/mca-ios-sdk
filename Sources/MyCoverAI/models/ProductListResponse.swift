@@ -32,10 +32,10 @@ struct BusinessDetails: Decodable {
 
 // MARK: - ProductDetail
 struct ProductDetail : Decodable{
-    var id: String?
+    var id: String
     var name: String
     var key_benefits: AnyDecodable?
-    var description: String?
+    var description: String
     var prefix: String
     var renewable: Bool
     var claimable: Bool
@@ -49,20 +49,20 @@ struct ProductDetail : Decodable{
     var active: Bool
     var how_it_works: String?
     var how_to_claim: String?
-    var product_category_id: String?
-    var provider_id: String?
+    var product_category_id: String
+    var provider_id: String
     var form_fields: [FormFieldElement]
 }
 
 // MARK: - FormFieldElement
 struct FormFieldElement: Decodable, Identifiable {
-    var id: String?
+    var id: String
     var app_mode: String?
     var description: String?
     var name: String
-    var label: String?
+    var label: String
     var position: Int
-    var full_description: String?
+    var full_description: String
     var data_type: String?
     var input_type: String?
     var show_first: Bool
