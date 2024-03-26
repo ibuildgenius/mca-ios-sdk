@@ -319,13 +319,18 @@ class NetworkService: NetworkServiceable {
             
             let (data, test) = try await URLSession.shared.upload(for: request, from: jsonData)
             print("Result")
-            let dataString = String(data: data, encoding: .utf8)
-            print(data)
-            print(dataString ?? "Cannot Find")
-            let decoder = JSONDecoder()
-            print("test")
-            print(test)
-            
+//            let dataString = String(data: data, encoding: .utf8)
+//            print(data)
+//            print(dataString ?? "Cannot Find")
+//            let decoder = JSONDecoder()
+//            print("test")
+//            print(test)
+            if let dataString = String(data: data, encoding: .utf8) {
+                print("Data as String:")
+                print(dataString)
+            } else {
+                print("Failed to convert data to string.")
+            }
             
             if let decodedResponse = try? decoder.decode(ProductListResponse.self, from: data) {
 // //TODO UNCOMMENT HERE
