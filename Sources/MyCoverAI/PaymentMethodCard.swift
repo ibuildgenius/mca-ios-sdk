@@ -19,17 +19,17 @@ struct PaymentMethodCard: View {
             HStack{
                 Image(uiImage: SCImage(name: image)!)
                 VStack(alignment:.leading) {
-                    Text(title).font(metropolisBold18)
-                    Text(description).padding(.vertical, 6).font(metropolisRegular13).foregroundColor(Color.gray)
+                    Text(title).font(SpaceGroteskBold18).padding(.bottom, 1)
+                    Text(description).font(spaceGroteskRegular13).foregroundColor(blackText.opacity(0.8))
                 }.padding(.horizontal, 12).frame(maxWidth: .infinity, alignment: .leading)
-            }.padding(8)
+            }.padding(15)
          
         } .background(Color.white)
             .overlay(
                 RoundedRectangle(cornerRadius: 4)
-                    .stroke(isSelected ? colorPrimary : colorGrey, lineWidth: isSelected ? 2 : 0.8)
+                    .stroke(isSelected ? colorPrimary : lightGrey.opacity(0.7), lineWidth: isSelected ? 2 : 0.8)
             )
-        .shadow(radius: 1)
+//        .shadow(radius: 1)
         
        
         .padding(.top, 15)

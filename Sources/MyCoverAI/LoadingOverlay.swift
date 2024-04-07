@@ -14,7 +14,7 @@ struct LoadingOverlay: View {
         VStack(alignment: .center) {
             LottieView(lottieFile: "loading", loopMode: .loop)
                                        .frame(width: 180, height: 180)
-            Text(loadingText).font(metropolisBold18).foregroundColor(Color.white)
+            Text(loadingText).font(SpaceGroteskBold18).foregroundColor(Color.white)
             
         }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center).background(Color.gray.opacity(0.8))
     }

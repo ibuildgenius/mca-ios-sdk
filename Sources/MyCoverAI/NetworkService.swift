@@ -12,13 +12,14 @@ import Alamofire
 
 
 protocol NetworkServiceable {
-    func getProducts() async  -> DataClass?
+    func getProducts() async  -> ProductListResponse?
     func intiatePurchase(payload: [String: Any]) async -> [String: AnyDecodable]?
     func getBanks() async -> BankResponse?
     func getSelectFieldOptions(url: String) async -> SelectResponse?
     func verifyTransaction(reference: String) async -> TransactionResponse?
     func uploadFile(file: URL) async -> UploadResponse?
     func completePurchase(payload: [String: Any]) async -> [String: AnyDecodable]?
+    func initiateWalletPurchase(formData: [String: Any]) async -> WalletTransactionResponse?
     
 }
 
@@ -36,11 +37,60 @@ fileprivate extension URLRequest {
 class NetworkService: NetworkServiceable {
     
     private let decoder = JSONDecoder()
-    
-    func completePurchase(payload: [String : Any]) async -> [String : AnyDecodable]? {
+    //
+    func initiateWalletPurchase(formData: [String : Any]) async -> WalletTransactionResponse?{
         if(Credential.APIKEY.isEmpty) {
             return nil
         }
+        let defaults = UserDefaults.standard
+        let payload: [String : Any] =
+        [
+            "instance_id": defaults.string(forKey: DefaultsKeys.instanceId) ?? "",
+            "reference": Credential.reference,
+            "payload": formData,
+        ]
+        let urlString = "\(baseURLString)/v1/sdk/initiate-purchase"
+        
+        guard let url = URL(string: urlString) else { print("url error occurred"); return nil }
+        
+        var request = URLRequest(url: url)
+        
+        let jsonData = try! JSONSerialization.data(withJSONObject: payload)
+        
+        request.httpMethod = "post"
+        request.httpBody = jsonData
+        request.setValue("Bearer \(Credential.APIKEY)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            
+            request.debug()
+            
+            let (data, response) = try await URLSession.shared.data(for: request)
+//            
+            if let decodedResponse = try? JSONDecoder().decode(WalletTransactionResponse.self,  from: data) {  
+                
+                
+                print("decoded response \(decodedResponse)")
+                return decodedResponse
+            } else {
+                print("cannot parse \(data)")
+            }
+            
+        } catch {
+            print("Invalid data")
+        }
+        return nil
+    }
+    
+    
+    func completePurchase( payload: [String : Any]) async -> [String : AnyDecodable]? {
+     
+        print(payload)
+        if(Credential.APIKEY.isEmpty) {
+            return nil
+        }
+        
         
         let urlString = "\(baseURLString)/v1/sdk/complete-purchase"
         
@@ -59,10 +109,9 @@ class NetworkService: NetworkServiceable {
             
             request.debug()
             
-            let (data, _) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await URLSession.shared.data(for: request)
             
-            
-            if let decodedResponse = try? JSONDecoder().decode([String: AnyDecodable].self,  from: data) {
+            if let decodedResponse = try? JSONDecoder().decode([String: AnyDecodable].self,  from: data) {            
                 
                 
                 print("decoded response \(decodedResponse)")
@@ -91,9 +140,9 @@ class NetworkService: NetworkServiceable {
         
         let urlString = "\(baseURLString)/v1/upload-file"
         
- 
+        
         let bodyJson = try! JSONSerialization.data(withJSONObject: ["fileType": "image"])
-            
+        
         let headers: HTTPHeaders = [
             "Content-Type": "multipart/form-data",
             "Authorization": "Bearer \(Credential.APIKEY)",
@@ -117,7 +166,6 @@ class NetworkService: NetworkServiceable {
             
             print("video upload response \(data)")
         }
-        
         
         dispatch.wait()
         return result
@@ -201,7 +249,7 @@ class NetworkService: NetworkServiceable {
         
         return nil
     }
-
+    
     let baseURLString: String
     
     init(baseURLString: String) {
@@ -287,7 +335,7 @@ class NetworkService: NetworkServiceable {
     }
     
     
-    func getProducts() async -> DataClass? {
+    func getProducts() async -> ProductListResponse? {
         if(Credential.APIKEY.isEmpty) {
             return nil
         }
@@ -298,7 +346,7 @@ class NetworkService: NetworkServiceable {
         
         var request = URLRequest(url: url)
         
-        let json = ["payment_option": "gateway", "action": "purchase"]
+        let json = ["payment_option": Credential.paymentOption, "action": "purchase", "debit_wallet_reference": Credential.reference]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: json)
         
@@ -313,12 +361,13 @@ class NetworkService: NetworkServiceable {
             
             let (data, _) = try await URLSession.shared.upload(for: request, from: jsonData)
             
-            if let decodedResponse = try? decoder.decode(ProductListResponse.self, from: data) {
-                print("response")
-                return decodedResponse.data
-            }else {
-                print("cannot parse response")
 
+            do {
+                let decodedResponse = try decoder.decode(ProductListResponse.self, from: data)
+                print("response")
+                return decodedResponse
+            } catch {
+                print("Error decoding response: \(error)")
             }
         } catch {
             print("Invalid data")
@@ -329,10 +378,19 @@ class NetworkService: NetworkServiceable {
 
 
 extension Data {
-   mutating func append(_ string: String) {
-      if let data = string.data(using: .utf8) {
-         append(data)
-         print("data======>>>",data)
-      }
-   }
+    mutating func append(_ string: String) {
+        if let data = string.data(using: .utf8) {
+            append(data)
+            print("data======>>>",data)
+        }
+    }
 }
+
+//Used to decode data
+//                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+//                    // Print the JSON data
+//                    print(json)
+//                } else {
+//                    print("Error converting data to JSON")
+//                }
+

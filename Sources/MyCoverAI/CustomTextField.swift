@@ -13,22 +13,23 @@ struct CustomTextField: View {
     let hint: String
     let disabled: Bool
     @State var text: String = ""
+    
     var onTap: (() -> Void)? = nil
     var onChange: ((String) -> Void)? = nil
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(label).font(metropolisRegularSM)
+            Text(label).font(spaceGroteskRegularSM).padding(.bottom,2)
             
             if(onTap == nil) {
                 TextField(hint, text: $text)
-                    .font(metropolisRegular)
-                    .padding(.all, 7)
+                    .font(spaceGroteskRegular)
+                    .padding(.all, 12)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(.gray, lineWidth: 1)
+                            .stroke(searchBorderColor, lineWidth: 1)
                     )
-                    .background(Color.gray.opacity(0.1))
+                    .background(colorGrey)
                     .keyboardType(inputType)
                     .disabled(disabled)
                 
@@ -36,13 +37,13 @@ struct CustomTextField: View {
             
             
             TextField(hint, text: $text)
-                .font(metropolisRegular)
-                .padding(.all, 7)
+                .font(spaceGroteskRegular)
+                .padding(.all, 12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(.gray, lineWidth: 1)
+                        .stroke(searchBorderColor, lineWidth: 1)
                 )
-                .background(Color.gray.opacity(0.1))
+                .background(colorGrey)
                 .onChange(of: text, perform: onChange ?? {val in })
                 .keyboardType(inputType)
                 .disabled(disabled)

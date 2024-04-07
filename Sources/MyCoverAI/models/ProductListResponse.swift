@@ -10,7 +10,7 @@ import AnyCodable
 struct ProductListResponse : Decodable{
     var responseCode: Int
     var responseText: String
-    var data: DataClass
+    var data: DataClass?
 }
 
 // MARK: - DataClass
@@ -26,7 +26,7 @@ struct BusinessDetails: Decodable {
     var trading_name: String
     var business_name: String
     var instance_id: String
-    var payment_channels: [String]
+    var payment_channels: [String]?
 }
 
 // MARK: - ProductDetail
@@ -50,7 +50,13 @@ struct ProductDetail : Decodable{
     var how_to_claim: String?
     var product_category_id: String
     var provider_id: String
+    var productCategory: ProductCategoryElement
     var form_fields: [FormFieldElement]
+}
+
+struct ProductCategoryElement: Decodable, Identifiable {
+    var id: String
+    var name: String
 }
 
 // MARK: - FormFieldElement

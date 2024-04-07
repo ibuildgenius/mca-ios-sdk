@@ -23,7 +23,7 @@ struct PaymentDetailsScreen: View {
     let fields: [String: Any]
     let files: [String: URL]
     
-        //  @EnvironmentObject var notificationHandler:  DYNotificationHandler
+    //  @EnvironmentObject var notificationHandler:  DYNotificationHandler
     
     @State private var display = Display.transactionType
     
@@ -45,7 +45,10 @@ struct PaymentDetailsScreen: View {
     
     @State private var buttonDisabled = false
     
+    @State private var showCopiedMessage = false
+    
     @State private var responseText = ""
+    @State private var responseTitle = ""
     @State private var showAlert = false
     @State private var transactionRes: TransactionResponse? = nil
     @State var timeRemaining = 60 * 10
@@ -76,7 +79,7 @@ struct PaymentDetailsScreen: View {
         var updatedFields = fields
         if(!files.isEmpty) {
             for item in files.keys {
-              let result = await networkService.uploadFile(file: files[item]!)
+                let result = await networkService.uploadFile(file: files[item]!)
                 if(result != nil && result?.responseCode == 1) {
                     updatedFields[item] = result!.data!.file_url
                 }
@@ -91,7 +94,7 @@ struct PaymentDetailsScreen: View {
         let payload = await uploadFiles()
         let result = await networkService.intiatePurchase(payload: format(payload: payload))
         isBusy = false
-       
+        
         let code = result!["responseCode"]!.value as! Int
         
         
@@ -105,7 +108,7 @@ struct PaymentDetailsScreen: View {
                 //listenForPaymentUpdate(ref: bankDetails["reference"] as! String)
             }
         } else {
-        
+            
             let rsText = (result!["responseText"]!).value as! String
             
             print("failed \(responseText)")
@@ -115,7 +118,7 @@ struct PaymentDetailsScreen: View {
             showAlert = true
             
             
-        
+            
         }
     }
     
@@ -132,14 +135,33 @@ struct PaymentDetailsScreen: View {
             transactionRes = response
             buttonText = "Continue"
             buttonDisabled = false
-          
+            
+        }else{
+            let rsText = response?.responseText ?? ""
+            if response != nil && (response!.responseText.contains("Transaction ongoing")) {
+                
+                responseText = rsText
+                
+                responseTitle = "Processing"
+                
+                showAlert = true
+                
+            }else{
+                
+                responseText = rsText
+                
+                showAlert = true
+                
+            }
+            
+            
         }
         isVerifying = false
     }
     
     var body: some View {
         
-      
+        
         if(display == Display.completeForm) {
             ProductForms(product: product, transactionResponse: transactionRes, data: fields)
         }
@@ -156,14 +178,14 @@ struct PaymentDetailsScreen: View {
                                 
                                 if(display == Display.bankDetails) {
                                     VStack(alignment: .trailing) {
-                                        Text((fields["email"] as? String) ?? "").font(metropolisRegular).foregroundColor(Color.gray)
+                                        Text((fields["email"] as? String) ?? "").font(spaceGroteskRegular).foregroundColor(Color.gray)
                                         HStack{
-                                            Text("Pay").font(metropolisRegular).foregroundColor(Color.gray);
+                                            Text("Pay").font(SpaceGroteskBold).foregroundColor(.black);
                                             
                                             Text("N\( formatNumbers(number: Double(price ?? product.price)! ) ) ")
                                             
                                         }
-                                        .padding(.vertical, 0.2).font(metropolisBold14)
+                                        .padding(.vertical, 0.2).font(SpaceGroteskBold16)
                                         .foregroundColor(colorPrimary)
                                         
                                     }.frame(maxWidth: .infinity, alignment: .trailing)
@@ -177,21 +199,23 @@ struct PaymentDetailsScreen: View {
                                 
                                 if(display != Display.bankDetails && display != Display.paymentSuccess) {
                                     VStack(alignment: .trailing) {
-                                        Text(product.prefix.capitalized).font(metropolisRegular).foregroundColor(Color.gray)
+                                        
                                         HStack{
-                                           
+                                            
                                             Text(product.name)
                                             
                                         }
-                                        .padding(.vertical, 0.2).font(metropolisBold14)
-                                        .foregroundColor(colorPrimary)
+                                        .padding(.vertical, 0.2).font(SpaceGroteskBold14)
+                                        .foregroundColor(.black)
+                                        
+                                        Text(product.prefix.capitalized).font(spaceGroteskRegular).foregroundColor(Color.gray)
                                         
                                     }.frame(maxWidth: .infinity, alignment: .trailing)
                                         .padding(12)
                                         .background(colorPrimaryTrans)
                                         .padding(.vertical, 15)
                                 }
-                    
+                                
                                 if(display == Display.bankDetails) {
                                     VStack(alignment: .center) {
                                         Text("\(bankDetails["message"]! as! String)").foregroundColor(colorPrimary)
@@ -199,26 +223,51 @@ struct PaymentDetailsScreen: View {
                                         Divider().padding(.vertical, 8)
                                         
                                         if(isTransfer) {
-                                            Text("\(bankDetails["bank"] as! String)\n\(bankDetails["account_number"] as! String)").padding(.vertical, 15).font(metropolisBold18).multilineTextAlignment(.center).lineSpacing(10)
-                                            Text("").padding(.vertical, 15).font(metropolisBold18).multilineTextAlignment(.center).lineSpacing(10)
+                                            Text("\(bankDetails["bank"] as! String)\n\(bankDetails["account_number"] as! String)").padding(.vertical, 15).font(SpaceGroteskBold18).multilineTextAlignment(.center).lineSpacing(10)
+                                            Text("").padding(.top, 15).font(SpaceGroteskBold18).multilineTextAlignment(.center).lineSpacing(10)
+                                            
+                                            Button{
+                                                // Copy text to clipboard
+                                                UIPasteboard.general.string = bankDetails["account_number"] as? String
+                                                
+                                                // Show a toast or alert confirming the copy
+                                                showCopiedMessage = true
+                                                
+                                                // Hide the message after a delay (e.g., 2 seconds)
+                                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                    showCopiedMessage = false
+                                                }
+                                            }label: {
+                                                if showCopiedMessage {
+                                                    Text("Text copied to clipboard!")
+                                                        .foregroundColor(.white)
+                                                        .padding(2)
+                                                        .background(lightGrey)
+                                                        .cornerRadius(5)
+                                                        .transition(.scale)
+                                                }else{
+                                                    Image(uiImage: SCIcon(sysName: "doc.on.doc")!).foregroundColor(colorPrimary)
+                                                }
+                                                
+                                            }
                                         } else {
-                                            Text("\(selectedBank!.name)\n\(bankDetails["ussd_code"] as! String)").padding(.vertical, 15).font(metropolisBold18).multilineTextAlignment(.center).lineSpacing(10).frame(maxWidth: .infinity)
-                                            Text("\(bankDetails["ussd_code"] as! String)").padding(.vertical, 15).font(metropolisBold18).multilineTextAlignment(.center).lineSpacing(10).frame(maxWidth: .infinity)
-                                            Text(" \(selectedBank!.currency.uppercased()) \(price!)").padding(.vertical, 15).font(metropolisBold18).multilineTextAlignment(.center).lineSpacing(10)
+                                            Text("\(selectedBank!.name)\n\(bankDetails["ussd_code"] as! String)").padding(.vertical, 15).font(SpaceGroteskBold18).multilineTextAlignment(.center).lineSpacing(10).frame(maxWidth: .infinity)
+                                            Text("\(bankDetails["ussd_code"] as! String)").padding(.vertical, 15).font(SpaceGroteskBold18).multilineTextAlignment(.center).lineSpacing(10).frame(maxWidth: .infinity)
+                                            Text(" \(selectedBank!.currency.uppercased()) \(price!)").padding(.vertical, 15).font(SpaceGroteskBold18).multilineTextAlignment(.center).lineSpacing(10)
                                         }
                                         
-                                    
+                                        
                                         Divider().padding(.vertical, 8)
                                     }.frame(maxWidth: .infinity).padding(18).background(colorGrey)
                                 }
                                 
                                 if(display == Display.transactionType) {
                                     
-                                    Text("Select Payment method").font(metropolisBold25)
+                                    Text("Select Payment method").font(SpaceGroteskBold18).padding(.top, 5)
                                     
-                                    Text("Choose an option to proceed").font(metropolisRegular13).padding(.vertical, 2).foregroundColor(Color.gray)
+                                    Text("Choose an option to proceed").font(spaceGroteskRegular13).padding(.vertical, 2).foregroundColor(blackText)
                                     
-                                   
+                                    
                                     PaymentMethodCard(title: "Transfer", description: "Send to a bank Account", isSelected: isTransfer, image: "transfer").onTapGesture {
                                         isTransfer = true
                                     }
@@ -231,7 +280,7 @@ struct PaymentDetailsScreen: View {
                                 if(display == Display.bankList) {
                                     
                                     Text("Select a bank of your choice")
-                                        .padding(.vertical, 5).font(metropolisBold16)
+                                        .padding(.vertical, 5).font(SpaceGroteskBold16)
                                     VStack(alignment: .leading) {
                                         ScrollView(.vertical) {
                                             VStack(alignment: .leading){
@@ -239,8 +288,8 @@ struct PaymentDetailsScreen: View {
                                                     
                                                     HStack() {
                                                         Text("\(bank.name) (\(bank.currency))").multilineTextAlignment(.leading)
-                            
-                                                            .font(metropolisMedium)
+                                                        
+                                                            .font(SpaceGroteskMedium)
                                                         HStack{}.frame(maxWidth: .infinity)
                                                         if(selectedBank?.code == bank.code) {
                                                             Image(uiImage: SCIcon(sysName: "checkmark")!).foregroundColor(colorPrimary)
@@ -258,62 +307,65 @@ struct PaymentDetailsScreen: View {
                                             
                                         }.padding(12)
                                     }.frame(maxWidth: .infinity, maxHeight: 280, alignment: .leading).background(colorPrimaryTrans)
-                                       
+                                    
                                 }
                                 
                                 if(display == Display.paymentSuccess) {
                                     VStack {
                                         LottieView(lottieFile: "check", loopMode: .playOnce)
                                             .frame(width: 180, height: 180).padding(13)
-                                        Text("Payment verified").font(metropolisBold18)
+                                        Text("Payment verified").font(SpaceGroteskBold18)
                                     }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
                                 }
                                 
-                            
                                 
                                 
-                                             
+                                
+                                
                             }.frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             
-                        
+                            
                             
                             if(display == Display.bankDetails) {
                                 
-                                     VStack {
-
-                                         ProgressView("Transaction would expire in \(timeRemaining / 60) minute(s)", value: Double(timeRemaining) , total:  60 * 10).font(metropolisRegular13).progressViewStyle(WithBackgroundProgressViewStyle())
-                                     }.onReceive(timer) { value in
-                                         if (timeRemaining > 0) {
-                                             timeRemaining -= 30
-                                             
-                                             if(!isVerifying) {
-                                                 Task {
-                                                    await verifyTransaction()
-                                                 }
-                                                 
-                                             }
-                                         } else {
-                                             timer.upstream.connect().cancel()
-                                         }
-                                             
-                                             
-                                     }.padding(.vertical, 12)
-
+                                VStack {
+                                    
+                                    ProgressView("Transaction would expire in \(timeRemaining / 60) minute(s)", value: Double(timeRemaining) , total:  60 * 10).font(spaceGroteskRegular13).progressViewStyle(WithBackgroundProgressViewStyle())
+                                }.onReceive(timer) { value in
+                                    if (timeRemaining > 0) {
+                                        timeRemaining -= 30
+                                        
+                                        if(!isVerifying) {
+                                            Task {
+                                                await verifyTransaction()
+                                            }
+                                            
+                                        }
+                                    } else {
+                                        timer.upstream.connect().cancel()
+                                    }
+                                    
+                                    
+                                }.padding(.vertical, 12)
+                                
                             }
                             
                             Button(buttonText) {
                                 
-    //                            Task {
-    //                                await verifyTransaction()
-    //                            }
-                               
+                                //                            Task {
+                                //                                await verifyTransaction()
+                                //                            }
+                                
                                 if(display == Display.transactionType && !isTransfer) {
                                     display = Display.bankList
                                 }
                                 else if(display == Display.bankDetails && !isVerifying && !buttonDisabled) {
                                     Task {
+                                        isBusy = true
                                         buttonDisabled = true
-                                     await verifyTransaction()
+                                        await verifyTransaction()
+                                        buttonDisabled = false
+                                        isBusy = false
                                     }
                                 }
                                 else if(display == Display.paymentSuccess) {
@@ -327,14 +379,14 @@ struct PaymentDetailsScreen: View {
                             }
                             .frame(maxWidth: .infinity)
                             .padding(.horizontal, 12)
-                                .padding(.vertical, 10)
-                                .foregroundColor(.white)
-                                .background(buttonDisabled ? Color.gray.opacity(0.4): colorPrimary)
-                                .clipShape(Capsule())
-                                .disabled(buttonDisabled)
+                            .padding(.vertical, 10)
+                            .foregroundColor(.white)
+                            .background(buttonDisabled ? Color.gray.opacity(0.4): colorPrimary)
+                            .clipShape(Capsule())
+                            .disabled(buttonDisabled)
                             
                             
-                        }.padding(.horizontal, 12)
+                        }.padding(.horizontal, 25)
                     })
                     
                 }).navigationBarHidden(true).task {
@@ -348,12 +400,12 @@ struct PaymentDetailsScreen: View {
                 }
                 
                 if(isBusy) {
-                 
-                   LoadingOverlay(loadingText: "Please  wait...")
+                    
+                    LoadingOverlay(loadingText: "Please  wait...")
                 }
             }   .alert(isPresented: $showAlert) {
                 Alert(
-                    title: Text("Transaction Failed"),
+                    title: Text(responseTitle.isEmpty ? "Transaction Failed" :responseTitle),
                     message: Text(responseText),
                     dismissButton: .default(Text("Ok"))
                 )

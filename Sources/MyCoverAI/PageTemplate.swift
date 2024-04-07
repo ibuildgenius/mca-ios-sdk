@@ -18,14 +18,17 @@ struct PageTemplate: View {
                 Image(uiImage: SCImage(name: "bg")!).resizable().frame(width: 50, height: 50, alignment: Alignment.bottomTrailing)
             }.frame(maxWidth: .infinity, maxHeight: .infinity)
             VStack {
-                HStack {
+                HStack{
                     Image(uiImage: SCIcon(sysName: "chevron.backward")!).onTapGesture {
                         onBackPressed()
                     }.foregroundColor(colorPrimary)
-                    Text("").frame(maxWidth: .infinity)
-                }.padding(12)
+                    Spacer()
+                    
+                    Image(uiImage: SCImage(name: "logo")!).resizable().frame(width: 135, height: 32)
+                    Spacer()
+                }.padding(.horizontal, 20).padding(.vertical)
                 
-                Image(uiImage: SCImage(name: "logo")!).resizable().frame(width: 135, height: 32)
+//              
                 
                 VStack {
                     mContent()
