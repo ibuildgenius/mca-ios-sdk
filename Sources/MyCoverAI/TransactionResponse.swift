@@ -16,6 +16,6 @@ struct TransactionResponse: Decodable {
 
 struct TransactionData: Decodable {
     let reference: String
-    let id: Int
+    let id: Int?
     let amount: Int
 }

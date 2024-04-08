@@ -4,6 +4,9 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>fonts/SpaceGrotesk-Regular.ttf</string>
+		<string>fonts/SpaceGrotesk-Medium.ttf</string>
+		<string>fonts/SpaceGrotesk-Bold.ttf</string>
 		<string>fonts/Metropolis-Medium.otf</string>
 		<string>fonts/Metropolis-Regular.otf</string>
 		<string>fonts/Metropolis-Bold.otf</string>

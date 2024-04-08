@@ -18,13 +18,17 @@ struct ProductInfoScreen: View {
     func continueButton() -> some View {
         VStack {
             Text("Continue")
-                .font(metropolisBold14)
+                .font(SpaceGroteskBold14)
                 .foregroundColor(Color.white)
-                .padding(.vertical, 9)
                
         }
+        .padding(.vertical, 5)
         .frame(maxWidth: .infinity)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .foregroundColor(.white)
         .background(colorPrimary)
+        .clipShape(Capsule())
         .padding(12)
     }
     
@@ -91,12 +95,7 @@ struct ProductInfoScreen: View {
                                 
                             }
                         }
-                        
-                        
-                        
                     })
-                    
-                    
                 })
                 
                 
